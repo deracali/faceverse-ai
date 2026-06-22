@@ -8,7 +8,7 @@ import crypto from "crypto"; // Native Node module to verify Paystack Webhook si
 import { createDecartClient, models } from "@decartai/sdk";
 
 // Import your user model and protection middleware
-import User from "./models/User.js";
+import User from "./models/user.js";
 import protect from "./middleware/authMiddleware.js";
 import authRoutes from "./routes/authRoutes.js";
 
