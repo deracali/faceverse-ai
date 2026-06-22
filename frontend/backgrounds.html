@@ -170,7 +170,7 @@
         // Resolve dynamic user contexts during initialization
         async function fetchUserInfo() {
             try {
-                const response = await fetch('http://localhost:5000/api/auth/me', {
+                const response = await fetch('https://faceverse-ai.onrender.com/api/auth/me', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -203,7 +203,7 @@
         // Initialize explicit session termination hook
         async function handleLogout() {
             try {
-                const response = await fetch('http://localhost:5000/api/auth/logout', {
+                const response = await fetch('https://faceverse-ai.onrender.com/api/auth/logout', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

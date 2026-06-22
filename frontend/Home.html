@@ -307,7 +307,7 @@
 </div>
 
 <script>
-const API_BASE = 'http://localhost:5000/api/lucy';
+const API_BASE = 'https://faceverse-ai.onrender.com/api/lucy';
 
 // State tracking structures for profile context
 let currentCredits = 0;
@@ -342,7 +342,7 @@ async function fetchUserInfo() {
     const sessionBtn = document.getElementById('start-realtime-session-btn');
     try {
         console.log("🚩 [Auth Sync] Contacting auth/me endpoint...");
-        const response = await fetch('http://localhost:5000/api/auth/me', {
+        const response = await fetch('https://faceverse-ai.onrender.com/api/auth/me', {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include'
@@ -624,7 +624,7 @@ async function stopVirtualCameraSession(forcedErrorMessage = null) {
 async function handleLogout() {
     if (activeSessionId) await stopVirtualCameraSession("Session killed via sign-out workflow.");
     try {
-        await fetch('http://localhost:5000/api/auth/logout', { method: 'POST', credentials: 'include' });
+        await fetch('https://faceverse-ai.onrender.com/api/auth/logout', { method: 'POST', credentials: 'include' });
         window.location.href = '/index.html';
     } catch (error) {
         window.location.href = '/index.html';
