@@ -228,7 +228,15 @@
                 const data = await response.json();
 
                 if (response.ok) {
-                    // Navigate directly to frontend Home dashboard on success
+                  // 🚩 ADDED: Lock the token into localStorage cleanly
+                    if (data.token) {
+                        localStorage.setItem('token', data.token);
+                        console.log("🔒 Token successfully cached in localStorage.");
+                    }
+
+                    // Optional: cache user info as well to minimize flash layouts
+                    localStorage.setItem('userEmail', data.email);
+
                     window.location.href = '/Home.html';
                 } else {
                     // Show validation or error payload from server

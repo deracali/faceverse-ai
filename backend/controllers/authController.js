@@ -46,10 +46,12 @@ export const registerUser = async (req, res) => {
       maxAge: 30 * 24 * 60 * 60 * 1000,
     });
 
+    // 🚩 MODIFIED: Added token into the JSON body payload
     return res.status(201).json({
       _id: user._id,
       email: user.email,
       credits: user.credits,
+      token: token,
       message: "User registered successfully",
     });
   } catch (error) {
@@ -82,9 +84,11 @@ export const loginUser = async (req, res) => {
       maxAge: 30 * 24 * 60 * 60 * 1000,
     });
 
+    // 🚩 MODIFIED: Added token into the JSON body payload
     return res.status(200).json({
       _id: user._id,
       email: user.email,
+      token: token,
       message: "Login successful",
     });
   } catch (error) {
@@ -92,6 +96,7 @@ export const loginUser = async (req, res) => {
     return sendCorsError(res, 500, error.message);
   }
 };
+
 
 // GET CURRENT USER (Returns balance, histories, etc.)
 export const getCurrentUser = async (req, res) => {
