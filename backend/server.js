@@ -33,7 +33,10 @@ const toKobo = (amount) => Math.round(parseFloat(amount) * 100);
 // --- Middleware Pipeline ---
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: [
+        "http://localhost:3000",
+        "https://faceverse-ai-alpha.vercel.app"
+      ],
     credentials: true,
   })
 );
