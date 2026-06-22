@@ -342,24 +342,27 @@ async function fetchUserInfo() {
     const sessionBtn = document.getElementById('start-realtime-session-btn');
     try {
         console.log("🚩 [Auth Sync] Contacting auth/me endpoint...");
+
+        // 🚩 PULL TOKEN FROM STORAGE
+        const token = localStorage.getItem('token');
+
         const response = await fetch('https://faceverse-ai.onrender.com/api/auth/me', {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include'
+            headers: {
+                'Content-Type': 'application/json',
+                // 🚩 ATTACH IT EXPLICITLY IN THE HEADERS
+                'Authorization': token ? `Bearer ${token}` : ''
+            }
         });
 
         if (response.ok) {
             const data = await response.json();
             console.log("🚩 [Auth Sync] Raw JSON payload returned from server:", data);
 
-            // 1. Correctly read from the flat root payload
             const availableCredits = data.credits !== undefined ? Number(data.credits) : 0;
-
-            // 2. Keep your global session management variables updated
             originalTotalCredits = availableCredits;
             currentCredits = availableCredits;
 
-            // 3. Update visual UI fields cleanly
             const emailEl = document.getElementById('user-email');
             if (emailEl) emailEl.textContent = data.email || 'No email set';
 
@@ -372,13 +375,15 @@ async function fetchUserInfo() {
             const planEl = document.getElementById('user-plan');
             if (planEl) planEl.textContent = data.plan || 'Free Tier';
 
-            // 4. Safely re-enable button tracking parameters
             if (sessionBtn && !activeSessionId) {
                 sessionBtn.disabled = false;
                 sessionBtn.textContent = "Start Virtual Camera";
             }
         } else {
-            console.warn(`⚠️ [Auth Sync] Unauthenticated profile status access.`);
+            console.warn(`⚠️ [Auth Sync] Unauthenticated profile status access. Status: ${response.status}`);
+
+            // 🚩 Clear stale tokens if the server outright rejects them
+            localStorage.removeItem('token');
             window.location.href = '/login.html';
         }
     } catch (error) {
