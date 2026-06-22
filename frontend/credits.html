@@ -175,30 +175,39 @@
 
         // Resolve dynamic user contexts during initialization
         async function fetchUserInfo() {
-            try {
-                const response = await fetch(`${API_BASE_URL}/auth/me`, {
-                    method: 'GET',
-                    headers: { 'Content-Type': 'application/json' },
-                    credentials: 'include'
-                });
+        try {
+            // 🚩 1. Pull the token string from localStorage matching your key
+            const token = localStorage.getItem('token');
 
-                if (response.ok) {
-                    const data = await response.json();
-
-                    document.getElementById('user-email').textContent = data.email || 'No email set';
-                    updateCreditsUI(data.credits);
-
-                    if (data.plan) {
-                        document.getElementById('user-plan').textContent = data.plan;
-                    }
-                } else {
-                    window.location.href = '/index.html';
+            const response = await fetch(`${API_BASE_URL}/auth/me`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // 🚩 2. Attach the token string directly using the Bearer template format
+                    'Authorization': token ? `Bearer ${token}` : ''
                 }
-            } catch (error) {
-                console.error('Failed to resolve system identification footprint:', error);
-            }
-        }
+            });
 
+            if (response.ok) {
+                const data = await response.json();
+
+                document.getElementById('user-email').textContent = data.email || 'No email set';
+                updateCreditsUI(data.credits);
+
+                if (data.plan) {
+                    document.getElementById('user-plan').textContent = data.plan;
+                }
+            } else {
+                console.warn(`⚠️ Profile status synchronization failed. Status Code: ${response.status}`);
+
+                // 🚩 3. Clean local storage on rejection to clear expired references
+                localStorage.removeItem('token');
+                window.location.href = '/index.html';
+            }
+        } catch (error) {
+            console.error('Failed to resolve system identification footprint:', error);
+        }
+    }
         // Top-up handler function configured to leverage Paystack Initialization Pipeline
         async function handleTopup(event) {
             const button = event.currentTarget;

@@ -545,37 +545,47 @@
     </footer>
 
     <script>
-        async function checkAuth() {
-            try {
-                const response = await fetch('https://faceverse-ai.onrender.com/api/auth/me', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    credentials: 'include'
-                });
+    async function checkAuth() {
+  try {
+      // 🚩 1. Pull the token string key from localStorage
+      const token = localStorage.getItem('token');
 
-                if (response.ok) {
-                    const userData = await response.json();
+      // If there is no token at all, don't even waste a network request
+      if (!token) return;
 
-                    // 1. Hide Login and Get Started header group
-                    document.getElementById('auth-buttons').classList.add('hidden');
+      const response = await fetch('https://faceverse-ai.onrender.com/api/auth/me', {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json',
+              // 🚩 2. Attach the token natively via the Bearer standard
+              'Authorization': `Bearer ${token}`
+          }
+      });
 
-                    // 2. Reveal Dashboard text / Go to Home link state
-                    document.getElementById('user-profile').classList.remove('hidden');
+      if (response.ok) {
+          const userData = await response.json();
 
-                    // 3. Update the main layout "Get Started" buttons to point directly to Home
-                    const heroActionBtn = document.getElementById('hero-action-btn');
-                    if(heroActionBtn) {
-                        heroActionBtn.setAttribute('href', '/Home.html');
-                        heroActionBtn.textContent = 'Go to Dashboard';
-                    }
-                }
-            } catch (error) {
-                console.error("Auth verification failed:", error);
-            }
-        }
+          // 1. Hide Login and Get Started header group
+          document.getElementById('auth-buttons').classList.add('hidden');
 
+          // 2. Reveal Dashboard text / Go to Home link state
+          document.getElementById('user-profile').classList.remove('hidden');
+
+          // 3. Update the main layout "Get Started" buttons to point directly to Home
+          const heroActionBtn = document.getElementById('hero-action-btn');
+          if(heroActionBtn) {
+              heroActionBtn.setAttribute('href', '/Home.html');
+              heroActionBtn.textContent = 'Go to Dashboard';
+          }
+      } else {
+          // If the token was corrupt or expired, clean it up silently
+          console.warn("Stored token rejected by server authentication middleware.");
+          localStorage.removeItem('token');
+      }
+  } catch (error) {
+      console.error("Auth verification failed:", error);
+  }
+}
         document.addEventListener('DOMContentLoaded', () => {
             checkAuth();
 

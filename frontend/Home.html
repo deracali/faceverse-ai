@@ -342,10 +342,17 @@ async function fetchUserInfo() {
     const sessionBtn = document.getElementById('start-realtime-session-btn');
     try {
         console.log("🚩 [Auth Sync] Contacting auth/me endpoint...");
+
+        // 🚩 1. Pull the string key matching exactly 'token' from localStorage
+        const token = localStorage.getItem('token');
+
         const response = await fetch('https://faceverse-ai.onrender.com/api/auth/me', {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include'
+            headers: {
+                'Content-Type': 'application/json',
+                // 🚩 2. Attach the token natively via the Bearer standard
+                'Authorization': token ? `Bearer ${token}` : ''
+            }
         });
 
         if (response.ok) {
@@ -378,7 +385,10 @@ async function fetchUserInfo() {
                 sessionBtn.textContent = "Start Virtual Camera";
             }
         } else {
-            console.warn(`⚠️ [Auth Sync] Unauthenticated profile status access.`);
+            console.warn(`⚠️ [Auth Sync] Unauthenticated profile status access. Status: ${response.status}`);
+
+            // 🚩 3. Clean local storage on rejection to clear corrupt references
+            localStorage.removeItem('token');
             window.location.href = '/login.html';
         }
     } catch (error) {

@@ -378,41 +378,48 @@
     <script>
         // Synchronize and render verified server variables
         async function fetchUserInfo() {
-            try {
-                // Changed routing structure target from your backend declaration: app.use("/api/lucy", authRoutes) pointing to /me
-                const response = await fetch('https://faceverse-ai.onrender.com/api/lucy/me', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    credentials: 'include'
-                });
+        try {
+            // 🚩 1. Pull the token string key from localStorage
+            const token = localStorage.getItem('token');
 
-                if (response.ok) {
-                    const data = await response.json();
-
-                    // Bind top level content nodes safely
-                    document.getElementById('user-email').textContent = data.email || 'No email set';
-                    const availableCredits = data.credits !== undefined ? data.credits : 0;
-                    document.getElementById('user-credits').textContent = `${availableCredits} credits`;
-
-                    // Handle Subdocument Arrays Parsing
-                    renderPayments(data.topupHistory || []);
-                    renderSessions(data.sessionHistory || []);
-                    renderCreditActivity(data.topupHistory || [], data.sessionHistory || []);
-                    calculateMetrics(data.sessionHistory || [], availableCredits);
-
-                    if (data.plan) {
-                        document.getElementById('user-plan').textContent = data.plan;
-                    }
-                } else {
-                    window.location.href = '/index.html';
+            // Changed routing structure target from your backend declaration: app.use("/api/lucy", authRoutes) pointing to /me
+            const response = await fetch('https://faceverse-ai.onrender.com/api/lucy/me', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // 🚩 2. Attach the token natively via the Bearer standard
+                    'Authorization': token ? `Bearer ${token}` : ''
                 }
-            } catch (error) {
-                console.error('Critical exception resolving active user session context:', error);
-            }
-        }
+            });
 
+            if (response.ok) {
+                const data = await response.json();
+
+                // Bind top level content nodes safely
+                document.getElementById('user-email').textContent = data.email || 'No email set';
+                const availableCredits = data.credits !== undefined ? data.credits : 0;
+                document.getElementById('user-credits').textContent = `${availableCredits} credits`;
+
+                // Handle Subdocument Arrays Parsing
+                renderPayments(data.topupHistory || []);
+                renderSessions(data.sessionHistory || []);
+                renderCreditActivity(data.topupHistory || [], data.sessionHistory || []);
+                calculateMetrics(data.sessionHistory || [], availableCredits);
+
+                if (data.plan) {
+                    document.getElementById('user-plan').textContent = data.plan;
+                }
+            } else {
+                console.warn(`⚠️ Dashboard transaction data sync failed. Status: ${response.status}`);
+
+                // 🚩 3. Clean up the rejected token to prevent infinite layout reloads
+                localStorage.removeItem('token');
+                window.location.href = '/index.html';
+            }
+        } catch (error) {
+            console.error('Critical exception resolving active user session context:', error);
+        }
+    }
         // Render Topup Payment History Array
         function renderPayments(payments) {
             const container = document.getElementById('payment-container');
