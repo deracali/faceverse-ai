@@ -31,15 +31,7 @@ const paystackHeaders = {
 const toKobo = (amount) => Math.round(parseFloat(amount) * 100);
 
 // --- Middleware Pipeline ---
-app.use(
-  cors({
-    origin: [
-        "http://localhost:3000",
-        "https://faceverse-ai-alpha.vercel.app"
-      ],
-    credentials: true,
-  })
-);
+app.use(cors({ origin: "https://faceverse-ai-alpha.vercel.app", credentials: true }));
 
 // CRITICAL: We need the raw body for the webhook signature verification,
 // so we configure express.json() to save it on req.rawBody
