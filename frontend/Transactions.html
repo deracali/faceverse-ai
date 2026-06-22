@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FaceVerseAi Dashboard - Transactions</title>
+    <style>
+        /* CSS Reset & Global Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #0b0f19;
+            color: #ffffff;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Variables for colors */
+        :root {
+            --bg-main: #0b0f19;
+            --bg-card: #111520;
+            --border-color: #1e2538;
+            --text-muted: #8b96a8;
+            --text-light: #e2e8f0;
+            --purple-gradient: linear-gradient(90deg, #7b3fe4, #9f61f7);
+            --active-bg: #1a1736;
+            --active-border: #3c2c68;
+        }
+
+        /* --- Sidebar --- */
+        .sidebar {
+            width: 260px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--border-color);
+            background-color: var(--bg-main);
+            overflow-y: auto;
+            min-width: 260px;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 32px;
+        }
+
+        .nav-menu a {
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-menu a:hover {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+
+        .nav-menu a.active {
+            background-color: var(--active-bg);
+            color: #ffffff;
+            border: 1px solid var(--active-border);
+        }
+
+        /* Sidebar Action Cards */
+        .action-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .action-card h3 {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .action-card p {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .btn-purple {
+            background: var(--purple-gradient);
+            color: #ffffff;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            width: fit-content;
+            box-shadow: 0 4px 12px rgba(123, 63, 228, 0.2);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #ffffff;
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: auto;
+            transition: background 0.2s;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* --- Main Content --- */
+        .main-content {
+            flex: 1;
+            padding: 24px 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        /* Grid Layouts */
+        .grid-top {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .grid-middle {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* Cards */
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-header {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .card-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #10b981; /* Emerald Green */
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+
+        /* Middle & Bottom Cards specific */
+        .card-title {
+            font-size: 15px;
+            font-weight: 500;
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+
+        .card-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        /* Dynamic Table Interfacing Custom CSS */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 13px;
+        }
+
+        .history-table th {
+            color: var(--text-muted);
+            font-weight: 500;
+            padding: 10px 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .history-table td {
+            padding: 12px 8px;
+            border-bottom: 1px solid rgba(30, 37, 56, 0.4);
+            color: var(--text-light);
+        }
+
+        .badge {
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .badge-completed { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+        .badge-pending { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+        .badge-failed { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+        .badge-connected { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+        .badge-disconnected { background: rgba(139, 150, 168, 0.15); color: var(--text-muted); }
+
+        .empty-state {
+            font-size: 13px;
+            color: var(--text-muted);
+            padding: 16px 0;
+            font-style: italic;
+        }
+
+        /* Footer Strip */
+        .footer-strip {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 16px;
+        }
+
+        /* Floating Action Button (Chat) */
+        .chat-fab {
+            position: absolute;
+            bottom: 32px;
+            right: 32px;
+            width: 50px;
+            height: 50px;
+            background-color: #3b2c68;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .chat-fab svg {
+            width: 24px;
+            height: 24px;
+            fill: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="logo">FaceVerseAi</div>
+
+        <nav class="nav-menu">
+            <a href="/Home.html">Dashboard</a>
+            <a href="/turtor.html">Tutorial</a>
+            <a href="/Avatars.html">Avatars</a>
+            <a href="/Backgrounds.html">Backgrounds</a>
+            <a href="/credits.html">Credits</a>
+            <a href="/Transactions.html" class="active">Transactions</a>
+            <a href="/Settings.html">Settings</a>
+        </nav>
+
+        <div class="action-card">
+            <h3>Refer & Earn</h3>
+            <p>Invite friends and get bonus credits.</p>
+            <button class="btn-purple">Buy Credits</button>
+        </div>
+
+        <div class="action-card">
+            <h3>Community</h3>
+            <p>Join our WhatsApp group for updates and support.</p>
+            <button class="btn-purple">Join WhatsApp Group</button>
+        </div>
+
+        <button id="logout-btn" class="btn-outline">Log out</button>
+    </aside>
+
+    <main class="main-content">
+
+        <div class="grid-top">
+            <div class="card">
+                <div class="card-header">Available Credits</div>
+                <div id="user-credits" class="card-value">0 credits</div>
+            </div>
+            <div class="card">
+                <div class="card-header">Active Plan</div>
+                <div id="user-plan" class="card-value">Standard</div>
+            </div>
+            <div class="card">
+                <div class="card-header">System Status</div>
+                <div class="card-value"><span class="status-dot"></span>Live</div>
+            </div>
+            <div class="card">
+                <div class="card-header">User</div>
+                <div id="user-email" class="card-value" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">Loading...</div>
+            </div>
+        </div>
+
+        <div class="grid-middle">
+            <div class="card">
+                <div class="card-title">Payment Transactions</div>
+                <div id="payment-container" class="table-container">
+                    <div class="empty-state">Loading transactional data...</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Credit Activity</div>
+                <div class="card-desc">Every credit added to or used from your wallet. If something doesn't look right, share the timestamp with support.</div>
+                <div id="activity-container" class="table-container">
+                    <div class="empty-state">Loading wallet records...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top: 8px;">
+            <div class="card-title">Session History</div>
+            <div class="card-desc">Every session you ran, how many credits it consumed, and the wallet balance left behind when it ended.</div>
+            <div id="session-container" class="table-container">
+                <div class="empty-state">Loading virtual sessions...</div>
+            </div>
+        </div>
+
+        <div class="footer-strip">
+            <span id="footer-session-usage">Session usage: 0s / unlimited session</span>
+            <span id="footer-today-usage">Today’s usage: 0s</span>
+            <span>Credits used: <span id="footer-credits">0 of 0</span></span>
+        </div>
+
+        <div class="chat-fab">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 3c5.5 0 10 3.58 10 8s-4.5 8-10 8c-1.24 0-2.43-.18-3.53-.5C5.55 21 2 21 2 21c2.33-2.33 2.7-3.9 2.75-4.5C3.19 15.07 2 13.13 2 11c0-4.42 4.5-8 10-8z"/>
+            </svg>
+        </div>
+
+    </main>
+
+    <script>
+        // Synchronize and render verified server variables
+        async function fetchUserInfo() {
+            try {
+                // Changed routing structure target from your backend declaration: app.use("/api/lucy", authRoutes) pointing to /me
+                const response = await fetch('http://localhost:5000/api/lucy/me', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include'
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+
+                    // Bind top level content nodes safely
+                    document.getElementById('user-email').textContent = data.email || 'No email set';
+                    const availableCredits = data.credits !== undefined ? data.credits : 0;
+                    document.getElementById('user-credits').textContent = `${availableCredits} credits`;
+
+                    // Handle Subdocument Arrays Parsing
+                    renderPayments(data.topupHistory || []);
+                    renderSessions(data.sessionHistory || []);
+                    renderCreditActivity(data.topupHistory || [], data.sessionHistory || []);
+                    calculateMetrics(data.sessionHistory || [], availableCredits);
+
+                    if (data.plan) {
+                        document.getElementById('user-plan').textContent = data.plan;
+                    }
+                } else {
+                    window.location.href = '/index.html';
+                }
+            } catch (error) {
+                console.error('Critical exception resolving active user session context:', error);
+            }
+        }
+
+        // Render Topup Payment History Array
+        function renderPayments(payments) {
+            const container = document.getElementById('payment-container');
+            if (payments.length === 0) {
+                container.innerHTML = '<div class="empty-state">No payments yet.</div>';
+                return;
+            }
+
+            let html = `
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Credits</th>
+                            <th>Provider</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            payments.forEach(p => {
+                const date = new Date(p.createdAt).toLocaleDateString(undefined, {month: 'short', day: 'numeric'});
+                html += `
+                    <tr>
+                        <td>${date}</td>
+                        <td style="color:#10b981; font-weight:600;">$${p.amountPaid}</td>
+                        <td>+${p.creditsAdded}</td>
+                        <td><span class="badge badge-completed">${p.paymentProvider}</span></td>
+                    </tr>
+                `;
+            });
+
+            html += '</tbody></table>';
+            container.innerHTML = html;
+        }
+
+        // Render Session History Subdocuments Array
+        function renderSessions(sessions) {
+            const container = document.getElementById('session-container');
+            if (sessions.length === 0) {
+                container.innerHTML = '<div class="empty-state">No sessions yet.</div>';
+                return;
+            }
+
+            let html = `
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>Started At</th>
+                            <th>Engine Model</th>
+                            <th>Duration</th>
+                            <th>Cost</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            // Sort chronologically (latest first)
+            const sortedSessions = [...sessions].sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+            sortedSessions.forEach(s => {
+                const date = new Date(s.createdAt).toLocaleString(undefined, {month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit'});
+                const duration = s.durationInSeconds >= 60 ? `${Math.floor(s.durationInSeconds / 60)}m ${s.durationInSeconds % 60}s` : `${s.durationInSeconds}s`;
+                html += `
+                    <tr>
+                        <td>${date}</td>
+                        <td style="font-family: monospace; color:#9f61f7;">${s.modelUsed}</td>
+                        <td>${duration}</td>
+                        <td style="color:#ef4444; font-weight:600;">-${s.creditsConsumed} cr</td>
+                        <td><span class="badge badge-${s.status}">${s.status}</span></td>
+                    </tr>
+                `;
+            });
+
+            html += '</tbody></table>';
+            container.innerHTML = html;
+        }
+
+        // Combine Topups and Sessions to create a dynamic single transactional Activity Log feed
+        function renderCreditActivity(payments, sessions) {
+            const container = document.getElementById('activity-container');
+            let activities = [];
+
+            payments.forEach(p => {
+                activities.push({
+                    timestamp: new Date(p.createdAt),
+                    description: `Wallet Top-up (${p.paymentProvider.toUpperCase()})`,
+                    amount: `+${p.creditsAdded}`,
+                    isNegative: false
+                });
+            });
+
+            sessions.forEach(s => {
+                if(s.creditsConsumed > 0) {
+                    activities.push({
+                        timestamp: new Date(s.createdAt),
+                        description: `Stream Session (${s.modelUsed})`,
+                        amount: `-${s.creditsConsumed}`,
+                        isNegative: true
+                    });
+                }
+            });
+
+            if (activities.length === 0) {
+                container.innerHTML = '<div class="empty-state">No activity yet.</div>';
+                return;
+            }
+
+            activities.sort((a, b) => b.timestamp - a.timestamp);
+
+            let html = `
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            activities.slice(0, 6).forEach(act => {
+                const timeStr = act.timestamp.toLocaleDateString(undefined, {month: 'short', day: 'numeric'}) + ' ' + act.timestamp.toLocaleTimeString(undefined, {hour:'2-digit', minute:'2-digit'});
+                const color = act.isNegative ? '#ef4444' : '#10b981';
+                html += `
+                    <tr>
+                        <td>${timeStr}</td>
+                        <td>${act.description}</td>
+                        <td style="color: ${color}; font-weight:600;">${act.amount}</td>
+                    </tr>
+                `;
+            });
+
+            html += '</tbody></table>';
+            container.innerHTML = html;
+        }
+
+        // Calculate metrics dynamically across history items
+        function calculateMetrics(sessions, currentBalance) {
+            let totalSeconds = 0;
+            let totalCreditsConsumed = 0;
+            let todaySeconds = 0;
+
+            const startOfToday = new Date();
+            startOfToday.setHours(0,0,0,0);
+
+            sessions.forEach(s => {
+                totalSeconds += s.durationInSeconds || 0;
+                totalCreditsConsumed += s.creditsConsumed || 0;
+
+                if (new Date(s.createdAt) >= startOfToday) {
+                    todaySeconds += s.durationInSeconds || 0;
+                }
+            });
+
+            document.getElementById('footer-session-usage').textContent = `Session usage: ${totalSeconds}s / unlimited session`;
+            document.getElementById('footer-today-usage').textContent = `Today’s usage: ${todaySeconds}s`;
+            document.getElementById('footer-credits').textContent = `${totalCreditsConsumed} of ${currentBalance + totalCreditsConsumed}`;
+        }
+
+        // Send sign-out command down the pipeline and redirect
+        async function handleLogout() {
+            try {
+                await fetch('http://localhost:5000/api/lucy/logout', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include'
+                });
+                window.location.href = '/index.html';
+            } catch (error) {
+                console.error('Logout routing pipeline encountered a network fault:', error);
+                window.location.href = '/index.html';
+            }
+        }
+
+        // Set up framework execution binds
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchUserInfo();
+            document.getElementById('logout-btn').addEventListener('click', handleLogout);
+        });
+    </script>
+</body>
+</html>

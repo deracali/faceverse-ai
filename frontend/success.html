@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FaceVerseAi - Payment Successful</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bg-main': '#0b0f19',
+                        'bg-card': '#111520',
+                        'border-color': '#1e2538',
+                        'text-muted': '#8b96a8',
+                        'text-light': '#e2e8f0',
+                        'purple-active': '#1a1736',
+                        'border-active': '#3c2c68'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-bg-main text-white h-screen flex items-center justify-center font-sans p-4">
+
+    <div id="payment-card" class="max-w-md w-full bg-bg-card border border-border-color rounded-2xl p-8 flex flex-col items-center text-center shadow-2xl relative overflow-hidden">
+
+        <!-- Loading State Spinner -->
+        <div id="loading-state" class="flex flex-col items-center py-6">
+            <div class="w-12 h-12 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+            <h2 class="text-lg font-semibold text-white mb-2">Verifying Payment...</h2>
+            <p class="text-sm text-text-muted">Securing validation strings from Paystack infrastructure.</p>
+        </div>
+
+        <!-- Realized Success View UI (Hidden Initally) -->
+        <div id="success-state" class="hidden flex flex-col items-center w-full">
+            <!-- Animated Checkmark Circle -->
+            <div class="w-16 h-16 bg-emerald-500/10 border border-emerald-500/30 rounded-full flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(16,185,129,0.1)]">
+                <svg class="w-8 h-8 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+
+            <h1 class="text-2xl font-bold tracking-tight text-white mb-2">Payment Confirmed!</h1>
+            <p class="text-sm text-text-muted mb-6 leading-relaxed">Your wallet has been adjusted successfully. Thank you for your purchase.</p>
+
+            <!-- Metadata Metrics Summary Block -->
+            <div class="w-full bg-bg-main/50 border border-border-color rounded-xl p-4 flex flex-col gap-3 text-left text-xs text-text-muted mb-8">
+                <div class="flex justify-between border-b border-border-color/40 pb-2">
+                    <span>Transaction Reference</span>
+                    <span id="summary-ref" class="font-mono text-white max-w-[180px] truncate">---</span>
+                </div>
+                <div class="flex justify-between border-b border-border-color/40 pb-2">
+                    <span>Credits Dispatched</span>
+                    <span id="summary-credits" class="font-semibold text-purple-400">0 credits</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Current Adjusted Wallet Balance</span>
+                    <span id="summary-balance" class="font-semibold text-white">0 credits</span>
+                </div>
+            </div>
+
+            <!-- Redirection Actions Layout Grid -->
+            <a href="/Home.html" class="w-full bg-gradient-to-r from-[#7b3fe4] to-[#9f61f7] text-white py-3 rounded-xl text-sm font-medium shadow-[0_4px_12px_rgba(123,63,228,0.2)] hover:opacity-90 transition-all text-center">
+                Return to Dashboard Wallet
+            </a>
+        </div>
+
+        <!-- Failure Handling Interceptor UI State (Hidden Initially) -->
+        <div id="failure-state" class="hidden flex flex-col items-center w-full">
+            <div class="w-16 h-16 bg-rose-500/10 border border-rose-500/30 rounded-full flex items-center justify-center mb-6">
+                <svg class="w-8 h-8 text-rose-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </div>
+            <h1 class="text-xl font-bold text-white mb-2">Verification Error</h1>
+            <p id="failure-msg" class="text-sm text-text-muted mb-6">The database execution tracking engine rejected the payment reference context signature.</p>
+            <a href="/credits.html" class="w-full border border-border-color bg-white/5 text-white/90 py-3 rounded-xl text-sm font-medium hover:bg-white/10 transition-all text-center">
+                Back to Support & Credits
+            </a>
+        </div>
+
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:5000/api';
+
+        async function verifyPaystackReference() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const reference = urlParams.get('reference') || urlParams.get('trxref');
+
+      if (!reference) {
+          showState('failure');
+          document.getElementById('failure-msg').textContent = "Missing tracking reference signatures inside URL route.";
+          return;
+      }
+
+      // Pull the dynamic session values saved right before checkout
+      const amountPaid = Number(localStorage.getItem('pending_amount_paid'));
+      const creditsAdded = Number(localStorage.getItem('pending_credits_added'));
+
+      // Double check that our local validation payload state exists
+      if (!amountPaid || !creditsAdded) {
+          showState('failure');
+          document.getElementById('failure-msg').textContent = "Missing local session data parameters for this transaction.";
+          return;
+      }
+
+      try {
+          const response = await fetch(`${API_BASE_URL}/lucy/credits/topup`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                  providerReference: reference,
+                  paymentProvider: 'Paystack',
+                  amountPaid: amountPaid,       // Satisfies: !amountPaid
+                  creditsAdded: creditsAdded    // Satisfies: !creditsAdded
+              }),
+              credentials: 'include'
+          });
+
+          const data = await response.json();
+
+          if (response.ok && (data.success || data.credits !== undefined)) {
+              document.getElementById('summary-ref').textContent = reference;
+              document.getElementById('summary-credits').textContent = `+${creditsAdded} Credits`;
+              document.getElementById('summary-balance').textContent = `${data.credits} credits`;
+
+              // Clean up session storage after a successful credit deposit
+              localStorage.removeItem('pending_amount_paid');
+              localStorage.removeItem('pending_credits_added');
+
+              showState('success');
+          } else {
+              document.getElementById('failure-msg').textContent = data.message || "The credit top-up processing framework failed validation.";
+              showState('failure');
+          }
+      } catch (error) {
+          console.error("Network validation trace failure:", error);
+          document.getElementById('failure-msg').textContent = "A connectivity network tracking interruption stopped verification.";
+          showState('failure');
+      }
+  }
+
+        function showState(state) {
+            document.getElementById('loading-state').classList.add('hidden');
+            document.getElementById('success-state').classList.add('hidden');
+            document.getElementById('failure-state').classList.add('hidden');
+
+            if (state === 'success') document.getElementById('success-state').classList.remove('hidden');
+            if (state === 'failure') document.getElementById('failure-state').classList.remove('hidden');
+        }
+
+        document.addEventListener('DOMContentLoaded', verifyPaystackReference);
+    </script>
+</body>
+</html>

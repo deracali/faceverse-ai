@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FaceVerseAi - AI Identity Masking Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#060713',
+                        cardBg: '#0e1126',
+                        brandPurple: '#a855f7',
+                        brandPink: '#ec4899',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #060713;
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #a855f7, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gradient-btn {
+            background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+        }
+        .gradient-border {
+            position: relative;
+        }
+        .gradient-border::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(to bottom right, rgba(168,85,247,0.4), rgba(236,72,153,0.1));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="text-gray-200 antialiased selection:bg-purple-500 selection:text-white overflow-x-hidden pt-28">
+
+    <header class="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-7xl mx-auto px-6 py-3 flex items-center justify-between z-50 bg-[#0a0b16]/60 backdrop-blur-xl rounded-2xl border border-slate-800/50 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+        <div class="flex items-center space-x-2">
+            <div class="w-9 h-9 rounded-xl gradient-btn flex items-center justify-center shadow-[0_0_20px_rgba(168,85,247,0.4)]">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+            </div>
+            <span class="text-xl font-bold tracking-tight text-white">Enzo<span class="text-purple-400">Cam</span></span>
+        </div>
+
+        <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-400">
+            <a href="#features" class="hover:text-white transition-colors">Features</a>
+            <a href="#how-it-works" class="hover:text-white transition-colors">How it Works</a>
+            <a href="#pricing" class="hover:text-white transition-colors">Pricing</a>
+            <a href="/about.html" class="hover:text-white transition-colors">About</a>
+            <a href="/contact.html" class="hover:text-white transition-colors">Contact</a>
+        </nav>
+
+        <div id="auth-container" class="flex items-center space-x-4">
+            <div id="auth-buttons" class="flex items-center space-x-4">
+                <a href="/auth.html" class="text-sm font-medium text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10">Log in</a>
+                <a id="hero-get-started-nav" href="/auth.html" class="text-sm font-medium text-white gradient-btn px-5 py-2.5 rounded-xl transition-transform hover:scale-[1.02] shadow-lg">Get Started</a>
+            </div>
+            <div id="user-profile" class="hidden flex items-center space-x-3">
+                <span class="text-sm text-gray-300 font-medium">Dashboard</span>
+                <a href="/Home.html" class="text-xs bg-purple-500/20 text-purple-300 border border-purple-500/30 px-3 py-1.5 rounded-lg hover:bg-purple-500/30 transition-all">Go to Home</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 relative">
+
+        <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-purple-900/10 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute top-[20%] right-[-10%] w-[600px] h-[600px] bg-pink-900/10 rounded-full blur-[150px] pointer-events-none"></div>
+
+        <section class="pt-8 pb-12">
+            <div class="gradient-border bg-[#0a0b16]/60 backdrop-blur-md rounded-3xl p-8 lg:p-12 shadow-2xl grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+                <div class="lg:col-span-6 space-y-6">
+                    <div class="inline-flex items-center space-x-2 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-full text-xs font-medium text-emerald-400">
+                        <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span>
+                        <span>AI Identity Masking Platform</span>
+                    </div>
+
+                    <h1 class="text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.1]">
+                        Be Anyone,<br>
+                        <span class="gradient-text">Anywhere.</span>
+                    </h1>
+
+                    <p class="text-gray-400 text-base lg:text-lg max-w-md leading-relaxed">
+                        Transform your identity in real-time for calls and live streaming using AI.
+                    </p>
+
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <button class="gradient-btn text-white font-medium px-6 py-3 rounded-xl shadow-lg shadow-purple-500/20 transition-transform hover:scale-[1.02]">Start Creating</button>
+                        <button class="bg-slate-900 border border-slate-800 text-gray-300 hover:text-white font-medium px-6 py-3 rounded-xl transition-colors hover:bg-slate-800/80 inline-flex items-center justify-center">Watch Demo</button>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-4 pt-8 border-t border-slate-800/60">
+                        <div class="bg-cardBg/40 p-4 rounded-2xl border border-slate-800/50">
+                            <h4 class="text-sm font-semibold text-white">Realtime Engine</h4>
+                            <p class="text-xs text-gray-500 mt-1">Low-latency face and voice sync</p>
+                        </div>
+                        <div class="bg-cardBg/40 p-4 rounded-2xl border border-slate-800/50">
+                            <h4 class="text-sm font-semibold text-white">Creator Mode</h4>
+                            <p class="text-xs text-gray-500 mt-1">Built for streaming workflows</p>
+                        </div>
+                        <div class="bg-cardBg/40 p-4 rounded-2xl border border-slate-800/50">
+                            <h4 class="text-sm font-semibold text-white">Privacy Layer</h4>
+                            <p class="text-xs text-gray-500 mt-1">Identity masking by design</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6 bg-cardBg/30 border border-slate-800/80 rounded-2xl p-6 relative">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-semibold text-gray-400 tracking-wider uppercase">Transformation Engine</span>
+                        <div class="flex items-center space-x-1.5 bg-red-500/10 border border-red-500/20 px-2.5 py-1 rounded-full text-[11px] font-medium text-red-400">
+                            <span class="w-1.5 h-1.5 bg-red-500 rounded-full"></span>
+                            <span>Live Output</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="relative bg-slate-950 aspect-[4/5] rounded-xl overflow-hidden group border border-slate-800">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Camera Input" class="w-full h-full object-cover brightness-90">
+                            <div class="absolute top-3 left-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] font-semibold tracking-wide text-gray-300">
+                                Camera Input
+                            </div>
+                        </div>
+                        <div class="relative bg-slate-950 aspect-[4/5] rounded-xl overflow-hidden group border border-purple-500/30">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80" alt="Live Output" class="w-full h-full object-cover">
+                            <div class="absolute top-3 left-3 bg-purple-600/80 backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] font-semibold tracking-wide text-white">
+                                Live Output
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-gray-500 text-center mt-4">
+                        Identity transformed in milliseconds for live calls and streams.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-6 border-y border-slate-900 bg-[#060713]/40">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 max-w-6xl mx-auto px-4">
+                <span class="text-xs font-medium text-gray-500 tracking-wider uppercase">Works with your favorite platforms</span>
+                <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+                    <span class="bg-slate-900/80 border border-slate-800/80 px-4 py-2 rounded-xl text-xs font-medium text-gray-300 flex items-center space-x-2"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> <span>WhatsApp</span></span>
+                    <span class="bg-slate-900/80 border border-slate-800/80 px-4 py-2 rounded-xl text-xs font-medium text-gray-300 flex items-center space-x-2"><span class="w-2 h-2 rounded-full bg-cyan-400"></span> <span>TikTok</span></span>
+                    <span class="bg-slate-900/80 border border-slate-800/80 px-4 py-2 rounded-xl text-xs font-medium text-gray-300 flex items-center space-x-2"><span class="w-2 h-2 rounded-full bg-blue-600"></span> <span>Facebook</span></span>
+                    <span class="bg-slate-900/80 border border-slate-800/80 px-4 py-2 rounded-xl text-xs font-medium text-gray-300 flex items-center space-x-2"><span class="w-2 h-2 rounded-full bg-sky-500"></span> <span>Zoom</span></span>
+                    <span class="bg-slate-900/80 border border-slate-800/80 px-4 py-2 rounded-xl text-xs font-medium text-gray-300 flex items-center space-x-2"><span class="w-2 h-2 rounded-full bg-green-500"></span> <span>Google Meet</span></span>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="py-20 space-y-12">
+            <div class="space-y-2">
+                <span class="text-xs font-semibold uppercase tracking-widest text-purple-500">Powerful Features</span>
+                <h2 class="text-4xl font-bold text-white tracking-tight">Everything you need to transform</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-cardBg/40 border border-slate-800/80 p-6 rounded-2xl space-y-4">
+                    <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white">Realtime Face Swap</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Transform your identity in milliseconds during calls and streams.</p>
+                </div>
+                <div class="bg-cardBg/40 border border-slate-800/80 p-6 rounded-2xl space-y-4">
+                    <div class="w-10 h-10 rounded-xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white">Voice Changer</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">AI-powered voice styling designed for live creator sessions.</p>
+                </div>
+                <div class="bg-cardBg/40 border border-slate-800/80 p-6 rounded-2xl space-y-4">
+                    <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.952 11.952 0 01-9.618 3.03A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-16.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white">Privacy Masking</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Hide your real identity while keeping expressive performance.</p>
+                </div>
+                <div class="bg-cardBg/40 border border-slate-800/80 p-6 rounded-2xl space-y-4">
+                    <div class="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white">VTuber Mode</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Launch virtual personas with cinematic avatar-ready output.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                <div class="bg-cardBg/40 border border-slate-800/80 p-6 rounded-2xl flex flex-col sm:flex-row sm:items-center gap-4">
+                    <div class="w-10 h-10 shrink-0 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-white">Streaming Support</h3>
+                        <p class="text-sm text-gray-400 mt-1">Built for OBS, TikTok Live, Zoom, Meet, and creator platforms.</p>
+                    </div>
+                </div>
+                <div class="bg-cardBg/40 border border-slate-800/80 p-6 rounded-2xl flex flex-col sm:flex-row sm:items-center gap-4">
+                    <div class="w-10 h-10 shrink-0 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-white">AI Identity Engine</h3>
+                        <p class="text-sm text-gray-400 mt-1">One platform for face and voice transformation workflows.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works" class="py-16 space-y-12">
+            <div class="space-y-2">
+                <span class="text-xs font-semibold uppercase tracking-widest text-purple-500">Simple Process</span>
+                <h2 class="text-4xl font-bold text-white tracking-tight">How FaceVerseAi Works</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-cardBg/30 border border-slate-800/60 p-6 rounded-2xl relative space-y-3">
+                    <span class="w-7 h-7 rounded-full bg-purple-500 text-white font-bold text-xs flex items-center justify-center">1</span>
+                    <h3 class="text-lg font-semibold text-white">Upload Face</h3>
+                    <p class="text-sm text-gray-400">Upload your base image or pick a preset avatar.</p>
+                </div>
+                <div class="bg-cardBg/30 border border-slate-800/60 p-6 rounded-2xl relative space-y-3">
+                    <span class="w-7 h-7 rounded-full bg-purple-500 text-white font-bold text-xs flex items-center justify-center">2</span>
+                    <h3 class="text-lg font-semibold text-white">AI Processing</h3>
+                    <p class="text-sm text-gray-400">FaceVerseAi models prepare your realtime transformation.</p>
+                </div>
+                <div class="bg-cardBg/30 border border-slate-800/60 p-6 rounded-2xl relative space-y-3">
+                    <span class="w-7 h-7 rounded-full bg-purple-500 text-white font-bold text-xs flex items-center justify-center">3</span>
+                    <h3 class="text-lg font-semibold text-white">Realtime Sync</h3>
+                    <p class="text-sm text-gray-400">Face and motion sync to your live camera feed.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl">
+                <div class="bg-cardBg/30 border border-slate-800/60 p-6 rounded-2xl relative space-y-3">
+                    <span class="w-7 h-7 rounded-full bg-purple-500 text-white font-bold text-xs flex items-center justify-center">4</span>
+                    <h3 class="text-lg font-semibold text-white">Voice Matching</h3>
+                    <p class="text-sm text-gray-400">Apply voice style for your chosen persona.</p>
+                </div>
+                <div class="bg-cardBg/30 border border-slate-800/60 p-6 rounded-2xl relative space-y-3">
+                    <span class="w-7 h-7 rounded-full bg-purple-500 text-white font-bold text-xs flex items-center justify-center">5</span>
+                    <h3 class="text-lg font-semibold text-white">Stream Live</h3>
+                    <p class="text-sm text-gray-400">Push output to OBS, meetings, or social livestreams.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-12 space-y-8">
+            <div class="space-y-1">
+                <span class="text-xs font-semibold uppercase tracking-widest text-purple-500">Watch It In Action</span>
+                <h2 class="text-3xl font-bold text-white tracking-tight">Realtime AI transformation showcase</h2>
+            </div>
+
+            <div class="bg-[#0b0c1e] border border-slate-800 rounded-2xl p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div class="lg:col-span-3 bg-slate-950/60 border border-slate-900 rounded-xl p-4 space-y-4">
+                    <div class="flex items-center space-x-2">
+                        <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
+                        <h4 class="font-bold text-sm text-white">FaceVerseAi Dashboard</h4>
+                    </div>
+                    <nav class="space-y-1 text-xs font-medium text-gray-400">
+                        <div class="px-3 py-2 bg-purple-500/10 text-purple-400 rounded-lg cursor-pointer">Realtime</div>
+                        <div class="px-3 py-2 hover:bg-slate-900 rounded-lg cursor-pointer transition-colors">Characters</div>
+                        <div class="px-3 py-2 hover:bg-slate-900 rounded-lg cursor-pointer transition-colors">Integrations</div>
+                        <div class="px-3 py-2 hover:bg-slate-900 rounded-lg cursor-pointer transition-colors">Settings</div>
+                    </nav>
+                </div>
+
+                <div class="lg:col-span-9 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-2">
+                        <span class="text-xs font-semibold text-gray-400 block">Private Camera Feed</span>
+                        <div class="relative rounded-xl overflow-hidden border border-slate-800 bg-black aspect-video">
+                            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=800&q=80" alt="User Stream" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 flex items-center justify-center bg-black/10">
+                                <span class="text-xl font-bold text-white/40 tracking-tight flex items-center gap-1">
+                                    <svg class="w-6 h-6 text-purple-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                                    Enzo<span class="text-purple-400/40">Cam</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <span class="text-xs font-semibold text-gray-400 block">What Others See</span>
+                        <div class="relative rounded-xl overflow-hidden border border-purple-500/30 bg-black aspect-video">
+                            <img src="https://images.unsplash.com/photo-1453733190148-c44698c26588?auto=format&fit=crop&w=800&q=80" alt="Albert Einstein Masked" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 flex items-center justify-center bg-black/15">
+                                <span class="text-xl font-bold text-white/50 tracking-tight flex items-center gap-1">
+                                    <svg class="w-6 h-6 text-purple-500/60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                                    Enzo<span class="text-purple-400/50">Cam</span>
+                                </span>
+                            </div>
+                            <div class="absolute bottom-3 right-3 bg-emerald-500/80 backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wide text-white flex items-center space-x-1.5">
+                                <span class="w-1.5 h-1.5 bg-white rounded-full animate-ping"></span>
+                                <span>Virtual Camera: Active</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-6">
+            <div class="border border-emerald-500/30 bg-emerald-950/10 rounded-2xl p-6 space-y-4">
+                <div class="flex items-center space-x-2">
+                    <span class="text-xs font-bold tracking-wide uppercase px-2.5 py-1 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-md">Launch Window</span>
+                    <h3 class="text-lg font-bold text-white">Creator rollout is live now</h3>
+                </div>
+
+                <div class="grid grid-cols-4 gap-4 max-w-xl">
+                    <div class="bg-slate-950/80 border border-slate-900 p-3 rounded-xl text-center">
+                        <span class="block text-2xl font-bold text-white font-mono">03</span>
+                        <span class="text-[10px] uppercase font-medium text-gray-500">Days</span>
+                    </div>
+                    <div class="bg-slate-950/80 border border-slate-900 p-3 rounded-xl text-center">
+                        <span class="block text-2xl font-bold text-white font-mono">12</span>
+                        <span class="text-[10px] uppercase font-medium text-gray-500">Hours</span>
+                    </div>
+                    <div class="bg-slate-950/80 border border-slate-900 p-3 rounded-xl text-center">
+                        <span class="block text-2xl font-bold text-white font-mono">48</span>
+                        <span class="text-[10px] uppercase font-medium text-gray-500">Minutes</span>
+                    </div>
+                    <div class="bg-slate-950/80 border border-slate-900 p-3 rounded-xl text-center">
+                        <span class="block text-2xl font-bold text-white font-mono">21</span>
+                        <span class="text-[10px] uppercase font-medium text-gray-500">Seconds</span>
+                    </div>
+                </div>
+
+                <p class="text-xs text-gray-400">High demand is expected. Secure your access and credits early.</p>
+            </div>
+        </section>
+
+        <section class="py-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <div class="lg:col-span-5 space-y-4">
+                <span class="text-xs font-semibold uppercase tracking-widest text-purple-500">How to Use</span>
+                <h3 class="text-3xl font-bold text-white">Go from setup to livestream in minutes</h3>
+
+                <div class="space-y-3">
+                    <div class="bg-cardBg/40 border border-slate-800/60 p-4 rounded-xl flex items-center space-x-3 text-sm text-gray-300">
+                        <span class="w-6 h-6 shrink-0 bg-slate-900 rounded-full flex items-center justify-center font-bold text-xs text-purple-400">1</span>
+                        <span>Create your account and open dashboard</span>
+                    </div>
+                    <div class="bg-cardBg/40 border border-slate-800/60 p-4 rounded-xl flex items-center space-x-3 text-sm text-gray-300">
+                        <span class="w-6 h-6 shrink-0 bg-slate-900 rounded-full flex items-center justify-center font-bold text-xs text-purple-400">3</span>
+                        <span>Select voice style and quality profile</span>
+                    </div>
+                    <div class="bg-cardBg/40 border border-slate-800/60 p-4 rounded-xl flex items-center space-x-3 text-sm text-gray-300">
+                        <span class="w-6 h-6 shrink-0 bg-slate-900 rounded-full flex items-center justify-center font-bold text-xs text-purple-400">4</span>
+                        <span>Start virtual camera and connect your platform</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 bg-cardBg/20 rounded-2xl overflow-hidden border border-slate-800/60">
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=1000&q=80" alt="Setup flow presentation" class="w-full h-auto object-cover max-h-[400px]">
+            </div>
+        </section>
+
+        <section id="pricing" class="py-20 space-y-12">
+            <div class="space-y-2">
+                <span class="text-xs font-semibold uppercase tracking-widest text-purple-500">Flexible Pricing</span>
+                <h2 class="text-4xl font-bold text-white tracking-tight">Choose the perfect plan for you</h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-cardBg/40 border border-slate-800/80 p-6 rounded-2xl flex flex-col justify-between space-y-6">
+                    <div class="space-y-2">
+                        <h4 class="text-sm font-medium text-gray-400">Please hold we are under Maintenance</h4>
+                        <span class="text-xs text-gray-500 block">300 credits</span>
+                        <div class="text-3xl font-bold text-white pt-2">₦16,000</div>
+                    </div>
+                    <button class="w-full py-2.5 rounded-xl text-xs font-semibold text-white gradient-btn">Get Started</button>
+                </div>
+                <div class="bg-cardBg/40 border border-slate-800/80 p-6 rounded-2xl flex flex-col justify-between space-y-6">
+                    <div class="space-y-2">
+                        <h4 class="text-sm font-medium text-gray-400">Basic</h4>
+                        <span class="text-xs text-gray-500 block">1000 credits</span>
+                        <div class="text-3xl font-bold text-white pt-2">₦50,999</div>
+                    </div>
+                    <button class="w-full py-2.5 rounded-xl text-xs font-semibold text-white gradient-btn">Get Started</button>
+                </div>
+                <div class="bg-cardBg/40 border border-slate-800/80 p-6 rounded-2xl flex flex-col justify-between space-y-6 ring-1 ring-purple-500/40 shadow-xl shadow-purple-500/5">
+                    <div class="space-y-2">
+                        <h4 class="text-sm font-medium text-gray-400">Pro</h4>
+                        <span class="text-xs text-gray-500 block">2000 credits</span>
+                        <div class="text-3xl font-bold text-white pt-2">₦100,000</div>
+                    </div>
+                    <button class="w-full py-2.5 rounded-xl text-xs font-semibold text-white gradient-btn">Get Started</button>
+                </div>
+                <div class="bg-cardBg/40 border border-slate-800/80 p-6 rounded-2xl flex flex-col justify-between space-y-6">
+                    <div class="space-y-2">
+                        <h4 class="text-sm font-medium text-gray-400">Ultimate</h4>
+                        <span class="text-xs text-gray-500 block">5000 credits</span>
+                        <div class="text-3xl font-bold text-white pt-2">₦259,999</div>
+                    </div>
+                    <button class="w-full py-2.5 rounded-xl text-xs font-semibold text-white gradient-btn">Get Started</button>
+                </div>
+            </div>
+
+            <div class="max-w-xs bg-cardBg/40 border border-slate-800/80 p-6 rounded-2xl flex flex-col justify-between space-y-6 mt-6">
+                <div class="space-y-2">
+                    <h4 class="text-sm font-medium text-purple-400">Enterprise/Teams</h4>
+                    <span class="text-xs text-gray-500 block">Unrestricted Dedicated Pipeline</span>
+                    <div class="text-3xl font-bold text-white pt-2">₦599,999</div>
+                </div>
+                <button class="w-full py-2.5 rounded-xl text-xs font-semibold text-white gradient-btn">Get Started</button>
+            </div>
+        </section>
+
+        <section class="py-12 max-w-4xl space-y-8">
+            <div class="space-y-2">
+                <span class="text-xs font-semibold uppercase tracking-widest text-purple-500">FAQ</span>
+                <h2 class="text-3xl font-bold text-white">Answers for creators and streaming teams</h2>
+            </div>
+
+            <div class="space-y-3">
+                <div class="border border-slate-900 bg-cardBg/20 rounded-xl overflow-hidden">
+                    <button class="w-full px-5 py-4 text-left text-sm font-semibold text-white flex items-center justify-between hover:bg-slate-900/40 transition-colors">
+                        <span>What is FaceVerseAi?</span>
+                        <span class="text-xs text-gray-500">▶</span>
+                    </button>
+                </div>
+                <div class="border border-slate-900 bg-cardBg/20 rounded-xl overflow-hidden">
+                    <button class="w-full px-5 py-4 text-left text-sm font-semibold text-white flex items-center justify-between hover:bg-slate-900/40 transition-colors">
+                        <span>Is voice changing realtime?</span>
+                        <span class="text-xs text-gray-500">▶</span>
+                    </button>
+                </div>
+                <div class="border border-slate-900 bg-cardBg/20 rounded-xl overflow-hidden">
+                    <button class="w-full px-5 py-4 text-left text-sm font-semibold text-white flex items-center justify-between hover:bg-slate-900/40 transition-colors">
+                        <span>Can I stream with OBS?</span>
+                        <span class="text-xs text-gray-500">▶</span>
+                    </button>
+                </div>
+                <div class="border border-slate-900 bg-cardBg/20 rounded-xl overflow-hidden">
+                    <button class="w-full px-5 py-4 text-left text-sm font-semibold text-white flex items-center justify-between hover:bg-slate-900/40 transition-colors">
+                        <span>Does it work on mobile?</span>
+                        <span class="text-xs text-gray-500">▶</span>
+                    </button>
+                </div>
+                <div class="border border-slate-900 bg-cardBg/20 rounded-xl overflow-hidden">
+                    <button class="w-full px-5 py-4 text-left text-sm font-semibold text-white flex items-center justify-between hover:bg-slate-900/40 transition-colors">
+                        <span>How many credits per minute?</span>
+                        <span class="text-xs text-gray-500">▶</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 space-y-8">
+            <div class="space-y-2">
+                <span class="text-xs font-semibold uppercase tracking-widest text-purple-500">Testimonials</span>
+                <h2 class="text-3xl font-bold text-white">Trusted by creator communities</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-cardBg/40 border border-slate-800/80 p-6 rounded-2xl space-y-4 flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-sm">A</div>
+                            <div>
+                                <h4 class="text-sm font-bold text-white">Ayo Streams</h4>
+                                <span class="text-[11px] text-gray-500">TikTok</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-400 leading-relaxed">"FaceVerseAi gave my livestream identity a professional, futuristic edge."</p>
+                    </div>
+                    <span class="text-[11px] font-semibold text-purple-400 tracking-wide block pt-2">128K followers</span>
+                </div>
+                <div class="bg-cardBg/40 border border-slate-800/80 p-6 rounded-2xl space-y-4 flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-purple-600 text-white font-bold flex items-center justify-center text-sm">M</div>
+                            <div>
+                                <h4 class="text-sm font-bold text-white">Maya VT</h4>
+                                <span class="text-[11px] text-gray-500">YouTube</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-400 leading-relaxed">"The realtime face + voice combo made my VTuber workflow seamless."</p>
+                    </div>
+                    <span class="text-[11px] font-semibold text-purple-400 tracking-wide block pt-2">74K followers</span>
+                </div>
+                <div class="bg-cardBg/40 border border-slate-800/80 p-6 rounded-2xl space-y-4 flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-indigo-600 text-white font-bold flex items-center justify-center text-sm">K</div>
+                            <div>
+                                <h4 class="text-sm font-bold text-white">Kofi Live</h4>
+                                <span class="text-[11px] text-gray-500">Twitch</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-400 leading-relaxed">"Best privacy-preserving creator tool I have used for calls and live demos."</p>
+                    </div>
+                    <span class="text-[11px] font-semibold text-purple-400 tracking-wide block pt-2">52K followers</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-12">
+            <div class="bg-gradient-to-r from-purple-950/40 via-purple-900/30 to-pink-950/20 border border-purple-900/40 rounded-3xl p-8 lg:p-12 flex flex-col sm:flex-row items-center justify-between gap-6 relative overflow-hidden">
+                <div class="space-y-2 text-center sm:text-left z-10">
+                    <h3 class="text-3xl font-bold text-white tracking-tight">Start Your First Transformation Today</h3>
+                    <p class="text-sm text-gray-400">No setup required. Works instantly in your browser.</p>
+                </div>
+                <button class="gradient-btn text-white font-semibold px-8 py-3.5 rounded-xl text-sm transition-transform hover:scale-[1.03] shadow-xl shadow-purple-500/20 shrink-0 z-10">Get Started</button>
+                <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-pink-600/10 rounded-full blur-3xl pointer-events-none"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="w-full border-t border-slate-950 bg-[#04050d] py-10 text-xs text-gray-500">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="flex items-center space-x-6 font-medium">
+                <span class="font-bold text-sm text-gray-300">Enzo<span class="text-purple-500">Cam</span></span>
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="hover:text-gray-300 transition-colors">About</a>
+                    <a href="#" class="hover:text-gray-300 transition-colors">Contact</a>
+                    <a href="#" class="hover:text-gray-300 transition-colors">Pricing</a>
+                    <a href="#" class="hover:text-gray-300 transition-colors">Terms</a>
+                    <a href="#" class="hover:text-gray-300 transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-gray-300 transition-colors">Refund Policy</a>
+                </div>
+            </div>
+            <div class="text-gray-600 font-mono text-[11px]">© 2026</div>
+        </div>
+    </footer>
+
+    <script>
+        async function checkAuth() {
+            try {
+                const response = await fetch('http://localhost:5000/api/auth/me', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include'
+                });
+
+                if (response.ok) {
+                    const userData = await response.json();
+
+                    // 1. Hide Login and Get Started header group
+                    document.getElementById('auth-buttons').classList.add('hidden');
+
+                    // 2. Reveal Dashboard text / Go to Home link state
+                    document.getElementById('user-profile').classList.remove('hidden');
+
+                    // 3. Update the main layout "Get Started" buttons to point directly to Home
+                    const heroActionBtn = document.getElementById('hero-action-btn');
+                    if(heroActionBtn) {
+                        heroActionBtn.setAttribute('href', '/Home.html');
+                        heroActionBtn.textContent = 'Go to Dashboard';
+                    }
+                }
+            } catch (error) {
+                console.error("Auth verification failed:", error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuth();
+
+            // Smooth scrolling logic
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const targetAttr = this.getAttribute('href');
+                    if (targetAttr.startsWith('#')) {
+                        e.preventDefault();
+                        const target = document.querySelector(targetAttr);
+                        if (target) {
+                            const offset = 100;
+                            const bodyRect = document.body.getBoundingClientRect().top;
+                            const targetRect = target.getBoundingClientRect().top;
+                            const targetPosition = targetRect - bodyRect;
+                            const offsetPosition = targetPosition - offset;
+
+                            window.scrollTo({
+                                top: offsetPosition,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - FaceVerseAi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#05050f',
+                        cardBg: '#0d1024',
+                        brandPurple: '#9333ea',
+                        brandLightPurple: '#a855f7',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #05050f;
+        }
+        .text-glow {
+            text-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+        }
+        .button-glow {
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+        }
+    </style>
+</head>
+<body class="text-gray-300 antialiased min-h-screen flex flex-col justify-between selection:bg-purple-500 selection:text-white relative overflow-x-hidden">
+
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-brandPurple/5 rounded-full blur-[140px] pointer-events-none z-0"></div>
+
+    <div class="sticky top-0 z-50 w-full bg-[#05050f]/40 backdrop-blur-md pt-4 pb-2">
+        <header class="w-full max-w-6xl mx-auto px-4">
+            <nav class="flex items-center justify-between bg-[#0d1024]/80 backdrop-blur-lg border border-slate-800/80 px-6 py-3 rounded-2xl shadow-xl">
+
+                <a href="/index.html" class="flex items-center space-x-3 group">
+                    <div class="relative w-7 h-7 flex items-center justify-center rounded-full border-2 border-dashed border-brandLightPurple/60 group-hover:rotate-45 transition-transform duration-500">
+                        <div class="w-4 h-4 rounded-full bg-gradient-to-tr from-blue-500 to-brandLightPurple flex items-center justify-center">
+                            <div class="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_4px_#fff]"></div>
+                        </div>
+                        <div class="absolute -inset-1 border border-blue-500/30 rounded-lg scale-75 opacity-70"></div>
+                    </div>
+                    <span class="text-xl font-extrabold tracking-tight text-white">
+                        Enzo<span class="text-brandLightPurple">Cam</span>
+                    </span>
+                </a>
+
+                <div class="hidden md:flex items-center space-x-8 text-[14px] font-medium text-gray-400">
+                    <a href="/index.html#features" class="hover:text-white transition-colors">Features</a>
+                    <a href="/index.html#how-it-works" class="hover:text-white transition-colors">How it Works</a>
+                    <a href="/index.html#pricing" class="hover:text-white transition-colors">Pricing</a>
+                    <a href="/about.html" class="hover:text-white transition-colors">About</a>
+                    <a href="/contact.html" class="text-white transition-colors font-semibold">Contact</a>
+                </div>
+
+                <div id="auth-container" class="flex items-center space-x-4">
+                    <a href="/auth.html" class="text-[14px] font-semibold text-gray-300 hover:text-white transition-colors px-3 py-2">
+                        Log in
+                    </a>
+                    <a href="/auth.html" class="text-[14px] font-semibold text-white bg-gradient-to-r from-brandPurple to-brandLightPurple hover:opacity-95 transition-all px-5 py-2.5 rounded-xl button-glow">
+                        Get Started
+                    </a>
+                </div>
+            </nav>
+        </header>
+    </div>
+
+    <main class="relative z-10 flex-1 w-full max-w-6xl mx-auto px-4 py-8 space-y-6">
+
+        <section class="bg-[#0d1024] border border-slate-800/60 rounded-2xl p-8 lg:p-10 shadow-xl">
+            <div class="flex items-center space-x-2 mb-4">
+                <span class="w-3 h-[1px] bg-brandLightPurple"></span>
+                <span class="text-[11px] font-bold tracking-widest text-brandLightPurple uppercase">Contact</span>
+            </div>
+            <h1 class="text-3xl lg:text-4xl font-bold text-white tracking-tight mb-4">
+                Talk to the right team
+            </h1>
+            <p class="text-[15px] text-gray-400 leading-relaxed max-w-4xl">
+                Pick the inbox that fits your enquiry &mdash; we typically reply within one business day.
+            </p>
+        </section>
+
+        <section class="bg-[#0d1024] border border-slate-800/60 rounded-2xl p-8 lg:p-10 shadow-xl space-y-6">
+            <h2 class="text-xl font-bold text-white tracking-tight">
+                Where to reach us
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+
+                <div class="bg-[#090b16]/50 border border-slate-800/50 rounded-xl p-5 flex flex-col justify-between space-y-4">
+                    <div>
+                        <span class="text-[10px] font-bold text-gray-500 tracking-wider uppercase block mb-1">Customer Support</span>
+                        <a href="mailto:support@enzocam1.com" class="text-[14px] font-bold text-white hover:text-brandLightPurple transition-colors break-all">
+                            support@enzocam1.com
+                        </a>
+                    </div>
+                    <p class="text-[13px] text-gray-400 leading-relaxed">
+                        Account help, technical issues, anything that stops you using the platform.
+                    </p>
+                </div>
+
+                <div class="bg-[#090b16]/50 border border-slate-800/50 rounded-xl p-5 flex flex-col justify-between space-y-4">
+                    <div>
+                        <span class="text-[10px] font-bold text-gray-500 tracking-wider uppercase block mb-1">Billing & Payments</span>
+                        <a href="mailto:billing@enzocam1.com" class="text-[14px] font-bold text-white hover:text-brandLightPurple transition-colors break-all">
+                            billing@enzocam1.com
+                        </a>
+                    </div>
+                    <p class="text-[13px] text-gray-400 leading-relaxed">
+                        Refunds, receipts, manual transfers, missing credits.
+                    </p>
+                </div>
+
+                <div class="bg-[#090b16]/50 border border-slate-800/50 rounded-xl p-5 flex flex-col justify-between space-y-4">
+                    <div>
+                        <span class="text-[10px] font-bold text-gray-500 tracking-wider uppercase block mb-1">General & Partnerships</span>
+                        <a href="mailto:hello@enzocam1.com" class="text-[14px] font-bold text-white hover:text-brandLightPurple transition-colors break-all">
+                            hello@enzocam1.com
+                        </a>
+                    </div>
+                    <p class="text-[13px] text-gray-400 leading-relaxed">
+                        Press, partnerships, creator collaborations, anything else.
+                    </p>
+                </div>
+
+                <div class="bg-[#090b16]/50 border border-slate-800/50 rounded-xl p-5 flex flex-col justify-between space-y-4">
+                    <div>
+                        <span class="text-[10px] font-bold text-gray-500 tracking-wider uppercase block mb-1">Legal & Compliance</span>
+                        <a href="mailto:legal@enzocam1.com" class="text-[14px] font-bold text-white hover:text-brandLightPurple transition-colors break-all">
+                            legal@enzocam1.com
+                        </a>
+                    </div>
+                    <p class="text-[13px] text-gray-400 leading-relaxed">
+                        Privacy requests, takedowns, legal notices.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="bg-[#0d1024] border border-slate-800/60 rounded-2xl p-8 lg:p-10 shadow-xl space-y-6">
+            <div>
+                <h2 class="text-xl font-bold text-white tracking-tight mb-1">
+                    Send us a message
+                </h2>
+                <p class="text-[13px] text-gray-400">
+                    Fill in the form and we'll open your email client with everything pre-filled &mdash; just hit send.
+                </p>
+            </div>
+
+            <form id="contact-form" class="space-y-5" onsubmit="handleFormSubmit(event)">
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="space-y-2">
+                        <label for="user-name" class="text-[10px] font-bold text-gray-400 tracking-wider uppercase block">
+                            Your Name
+                        </label>
+                        <input
+                            type="text"
+                            id="user-name"
+                            placeholder="Optional"
+                            class="w-full px-4 py-3 bg-[#070815] border border-slate-800 rounded-xl text-gray-200 text-[14px] font-medium focus:ring-2 focus:ring-brandPurple focus:border-transparent outline-none transition-all placeholder-gray-600"
+                        >
+                    </div>
+                    <div class="space-y-2">
+                        <label for="user-email" class="text-[10px] font-bold text-gray-400 tracking-wider uppercase block">
+                            Reply-To Email
+                        </label>
+                        <input
+                            type="email"
+                            id="user-email"
+                            placeholder="you@example.com"
+                            class="w-full px-4 py-3 bg-[#070815] border border-slate-800 rounded-xl text-gray-200 text-[14px] font-medium focus:ring-2 focus:ring-brandPurple focus:border-transparent outline-none transition-all placeholder-gray-600"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label for="topic-select" class="text-[10px] font-bold text-gray-400 tracking-wider uppercase block">
+                        What's it about?
+                    </label>
+                    <div class="relative">
+                        <select
+                            id="topic-select"
+                            class="w-full px-4 py-3 bg-[#070815] border border-slate-800 rounded-xl text-gray-200 text-[14px] font-medium focus:ring-2 focus:ring-brandPurple focus:border-transparent outline-none transition-all appearance-none cursor-pointer"
+                        >
+                            <option value="support@enzocam1.com">Customer support</option>
+                            <option value="billing@enzocam1.com">Billing & Payments</option>
+                            <option value="hello@enzocam1.com">General & Partnerships</option>
+                            <option value="legal@enzocam1.com">Legal & Compliance</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-gray-400">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label for="message-content" class="text-[10px] font-bold text-gray-400 tracking-wider uppercase block">
+                        Message
+                    </label>
+                    <textarea
+                        id="message-content"
+                        rows="5"
+                        placeholder="Tell us what you need help with..."
+                        class="w-full px-4 py-3 bg-[#070815] border border-slate-800 rounded-xl text-gray-200 text-[14px] font-medium focus:ring-2 focus:ring-brandPurple focus:border-transparent outline-none transition-all placeholder-gray-600 resize-none"
+                        required
+                    ></textarea>
+                </div>
+
+                <div class="flex items-center justify-end space-x-3 pt-2">
+                    <a href="/index.html" class="px-5 py-2.5 text-[13px] font-semibold text-gray-400 bg-[#070815] hover:bg-[#0d1024] border border-slate-800 rounded-xl transition-all">
+                        Back
+                    </a>
+                    <button
+                        type="submit"
+                        class="text-[13px] font-semibold text-white bg-gradient-to-r from-brandPurple to-brandLightPurple hover:opacity-95 transition-all px-6 py-2.5 rounded-xl button-glow active:scale-[0.98]"
+                    >
+                        Open in email
+                    </button>
+                </div>
+
+            </form>
+        </section>
+
+    </main>
+
+    <footer class="relative z-10 w-full max-w-6xl mx-auto px-4 pb-8 mt-6">
+        <div class="flex flex-col sm:flex-row items-center justify-between bg-[#05050f] border border-slate-800/40 rounded-xl px-6 py-4 space-y-4 sm:space-y-0">
+            <div class="text-md font-bold text-white tracking-tight">
+                FaceVerseAi
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-[12px] font-medium text-gray-400">
+                <a href="/index.html" class="hover:text-white transition-colors">Home</a>
+                <a href="/about.html" class="hover:text-white transition-colors">About</a>
+                <a href="/contact.html" class="hover:text-white transition-colors text-white">Contact</a>
+                <a href="/terms.html" class="hover:text-white transition-colors">Terms</a>
+                <a href="/privacy.html" class="hover:text-white transition-colors">Privacy</a>
+                <a href="/refund.html" class="hover:text-white transition-colors">Refund Policy</a>
+            </div>
+
+            <div class="flex items-center space-x-1.5 px-2.5 py-1 bg-[#090b16] border border-slate-800/80 rounded-lg text-[11px] text-gray-400 font-medium">
+                <span>&copy;</span>
+                <span class="text-white font-semibold">2026</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('user-name').value.trim();
+            const email = document.getElementById('user-email').value.trim();
+            const destinationInbox = document.getElementById('topic-select').value;
+            const message = document.getElementById('message-content').value.trim();
+
+            const subject = encodeURIComponent(`EnzoCam Inquiry from ${name || 'User'}`);
+
+            const bodyMessage = `Name: ${name || 'Not Provided'}\nReply-To: ${email}\n\nMessage:\n${message}`;
+            const body = encodeURIComponent(bodyMessage);
+
+            window.location.href = `mailto:${destinationInbox}?subject=${subject}&body=${body}`;
+        }
+
+        // Asynchronous structural handshake hook matching landing page specification metrics
+        async function checkSession() {
+            try {
+                const response = await fetch('http://localhost:5000/api/auth/me', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include'
+                });
+
+                if (response.ok) {
+                    const authContainer = document.getElementById('auth-container');
+                    if (authContainer) {
+                        // Dynamically update view links with secure workspace access terminal shortcut
+                        authContainer.innerHTML = `
+                            <a href="/Home.html" class="text-[14px] font-semibold text-white bg-gradient-to-r from-brandPurple to-brandLightPurple hover:opacity-95 transition-all px-5 py-2.5 rounded-xl button-glow">
+                                Dashboard
+                            </a>
+                        `;
+                    }
+                }
+            } catch (error) {
+                // Fail verification operations silently to prioritize interface fluidity for public traffic
+                console.log('Session endpoint handshake skipped:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', checkSession);
+    </script>
+</body>
+</html>

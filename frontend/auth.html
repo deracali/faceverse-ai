@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In & Register - FaceVerseAi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#05050f',
+                        cardBg: '#0d1024',
+                        brandPurple: '#9333ea',
+                        brandLightPurple: '#a855f7',
+                        inputBg: '#f0f4f8'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #05050f;
+        }
+        .text-glow {
+            text-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+        }
+        .button-glow {
+            box-shadow: 0 0 20px rgba(147, 51, 234, 0.4);
+        }
+    </style>
+</head>
+<body class="text-gray-200 antialiased min-h-screen flex overflow-x-hidden selection:bg-purple-500 selection:text-white">
+
+    <div class="flex flex-1 flex-col lg:flex-row w-full relative">
+
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-brandPurple/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="flex-1 flex flex-col justify-between p-8 lg:p-20 relative z-10 border-b lg:border-b-0 lg:border-r border-slate-800/50 bg-[#05050f]/80 backdrop-blur-sm">
+
+            <div class="mt-8 lg:mt-16 max-w-md">
+                <a href="/" class="text-3xl font-extrabold tracking-tight text-white inline-block mb-12 hover:opacity-90 transition-opacity">
+                    FaceVerseAi
+                </a>
+
+                <h1 class="text-4xl lg:text-[2.75rem] font-bold text-white leading-[1.2] tracking-tight mb-2">
+                    Real-time identity for
+                    <span class="block text-brandLightPurple text-glow mt-1">streams & calls</span>
+                </h1>
+
+                <ul class="space-y-6 mt-12">
+                    <li class="flex items-start space-x-4">
+                        <span class="w-1.5 h-1.5 rounded-full bg-brandLightPurple mt-2.5 shrink-0 shadow-[0_0_8px_rgba(168,85,247,0.8)]"></span>
+                        <p class="text-gray-300 text-[15px] leading-relaxed font-medium">
+                            Secure sign-in powered by your identity backend <br class="hidden sm:block"><span class="text-gray-400 font-normal">— your profile syncs automatically.</span>
+                        </p>
+                    </li>
+                    <li class="flex items-start space-x-4">
+                        <span class="w-1.5 h-1.5 rounded-full bg-brandLightPurple mt-2.5 shrink-0 shadow-[0_0_8px_rgba(168,85,247,0.8)]"></span>
+                        <p class="text-gray-400 text-[15px] leading-relaxed">
+                            Buy credits, run sessions, and manage characters from your dashboard.
+                        </p>
+                    </li>
+                    <li class="flex items-start space-x-4">
+                        <span class="w-1.5 h-1.5 rounded-full bg-brandLightPurple mt-2.5 shrink-0 shadow-[0_0_8px_rgba(168,85,247,0.8)]"></span>
+                        <p class="text-gray-400 text-[15px] leading-relaxed">
+                            OBS-ready output when you are ready to go live.
+                        </p>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="mt-16 lg:mt-0 max-w-xs">
+                <p class="text-[11px] text-gray-500 leading-relaxed font-medium">
+                    New here? Create an account, then view your personalized configuration panel instantly.
+                </p>
+            </div>
+        </div>
+
+        <div class="flex-1 flex items-center justify-center p-8 lg:p-20 relative z-10 bg-[#070815]">
+
+            <div class="w-full max-w-[420px] bg-[#0d1024] border border-slate-800/80 rounded-2xl p-8 shadow-2xl relative">
+
+                <div class="mb-6">
+                    <h2 id="auth-title" class="text-2xl font-bold text-white mb-2 tracking-tight">Welcome back</h2>
+                    <p id="auth-desc" class="text-[13px] text-gray-400">Sign in to manage credits, sessions, and uploads.</p>
+                </div>
+
+                <div id="error-banner" class="hidden p-3 mb-4 text-xs font-medium bg-red-500/10 border border-red-500/20 text-red-400 rounded-xl"></div>
+
+                <div class="flex items-center p-1 bg-[#090b16] rounded-xl border border-slate-800/50 mb-8">
+                    <button id="btn-login" type="button" onclick="toggleAuth('login')" class="flex-1 py-2 text-[13px] font-semibold text-white bg-[#201d4a] rounded-lg shadow-sm transition-all duration-200">
+                        Sign in
+                    </button>
+                    <button id="btn-register" type="button" onclick="toggleAuth('register')" class="flex-1 py-2 text-[13px] font-medium text-gray-400 hover:text-white rounded-lg transition-all duration-200">
+                        Register
+                    </button>
+                </div>
+
+                <form id="auth-form" class="space-y-5">
+
+                    <div class="space-y-2">
+                        <label for="email" class="text-[10px] font-bold text-gray-400 tracking-wider uppercase block">
+                            Email
+                        </label>
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="name@example.com"
+                            class="w-full px-4 py-3 bg-inputBg border-none rounded-xl text-gray-900 text-[14px] font-medium focus:ring-2 focus:ring-brandPurple outline-none transition-all"
+                            required
+                        >
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="password" class="text-[10px] font-bold text-gray-400 tracking-wider uppercase block">
+                            Password
+                        </label>
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="••••••••••••"
+                            class="w-full px-4 py-3 bg-inputBg border-none rounded-xl text-gray-900 text-[14px] font-medium focus:ring-2 focus:ring-brandPurple outline-none transition-all tracking-widest"
+                            required
+                        >
+                    </div>
+
+                    <div id="forgot-password-wrap" class="flex justify-end pt-1">
+                        <a href="#" class="text-[12px] font-semibold text-brandLightPurple hover:text-purple-300 transition-colors">
+                            Forgot password?
+                        </a>
+                    </div>
+
+                    <div class="pt-2">
+                        <button
+                            id="auth-submit-btn"
+                            type="submit"
+                            class="w-full bg-brandLightPurple hover:bg-brandPurple text-white font-semibold text-[14px] py-3.5 rounded-xl transition-all duration-200 button-glow active:scale-[0.98]"
+                        >
+                            Sign in
+                        </button>
+                    </div>
+
+                </form>
+
+                <div class="mt-8 text-center">
+                    <a href="/" class="text-[12px] font-medium text-gray-400 hover:text-white transition-colors inline-flex items-center space-x-1.5">
+                        <span>&larr;</span>
+                        <span>Back to home</span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Track whether user is looking at 'login' or 'register' layout
+        let currentMode = 'login';
+
+        function toggleAuth(mode) {
+            currentMode = mode;
+            const title = document.getElementById('auth-title');
+            const desc = document.getElementById('auth-desc');
+            const loginBtn = document.getElementById('btn-login');
+            const registerBtn = document.getElementById('btn-register');
+            const forgotPassword = document.getElementById('forgot-password-wrap');
+            const submitBtn = document.getElementById('auth-submit-btn');
+
+            // Clean out old submission warnings
+            document.getElementById('error-banner').classList.add('hidden');
+
+            if (mode === 'register') {
+                title.textContent = 'Create an account';
+                desc.textContent = 'Register to manage credits, sessions, and uploads.';
+                submitBtn.textContent = 'Register';
+                forgotPassword.classList.add('hidden');
+
+                loginBtn.className = "flex-1 py-2 text-[13px] font-medium text-gray-400 hover:text-white rounded-lg transition-all duration-200";
+                registerBtn.className = "flex-1 py-2 text-[13px] font-semibold text-white bg-[#201d4a] rounded-lg shadow-sm transition-all duration-200";
+            } else {
+                title.textContent = 'Welcome back';
+                desc.textContent = 'Sign in to manage credits, sessions, and uploads.';
+                submitBtn.textContent = 'Sign in';
+                forgotPassword.classList.remove('hidden');
+
+                registerBtn.className = "flex-1 py-2 text-[13px] font-medium text-gray-400 hover:text-white rounded-lg transition-all duration-200";
+                loginBtn.className = "flex-1 py-2 text-[13px] font-semibold text-white bg-[#201d4a] rounded-lg shadow-sm transition-all duration-200";
+            }
+        }
+
+        // Handle structural form submission intercept
+        document.getElementById('auth-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorBanner = document.getElementById('error-banner');
+            const submitBtn = document.getElementById('auth-submit-btn');
+
+            // Set endpoint depending on dynamic runtime mode state
+            const targetUrl = currentMode === 'register'
+                ? 'http://localhost:5000/api/auth/register'
+                : 'http://localhost:5000/api/auth/login';
+
+            try {
+                errorBanner.classList.add('hidden');
+                submitBtn.disabled = true;
+                submitBtn.textContent = currentMode === 'register' ? 'Registering...' : 'Signing in...';
+
+                const response = await fetch(targetUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password }),
+                    credentials: 'include' // Attaches session/auth tokens natively
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Navigate directly to frontend Home dashboard on success
+                    window.location.href = '/Home.html';
+                } else {
+                    // Show validation or error payload from server
+                    errorBanner.textContent = data.message || `An error occurred during ${currentMode}.`;
+                    errorBanner.classList.remove('hidden');
+                }
+            } catch (err) {
+                console.error("Network interface connection failure:", err);
+                errorBanner.textContent = "Could not connect to authentication services. Please verify your local system backend configuration.";
+                errorBanner.classList.remove('hidden');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = currentMode === 'register' ? 'Register' : 'Sign in';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Tutorials | FaceVerseAi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#05050f',
+                        sidebarBg: '#060713',
+                        cardBg: '#0d1024',
+                        innerBoxBg: '#090b16',
+                        brandPurple: '#9333ea',
+                        brandLightPurple: '#a855f7',
+                        borderSlate: '#1e293b'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #05050f;
+        }
+        .button-glow {
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+        }
+        /* Custom scrollbar matching styling mechanics */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #05050f;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="text-gray-300 antialiased min-h-screen flex relative overflow-x-hidden">
+
+    <aside class="w-64 bg-[#060713] border-r border-slate-800/60 flex flex-col justify-between fixed h-screen top-0 left-0 z-30 shrink-0">
+        <div class="p-6 space-y-8 overflow-y-auto flex-1">
+            <div class="text-2xl font-extrabold tracking-tight text-white px-2">
+                Enzo<span class="text-brandLightPurple">Cam</span>
+            </div>
+
+            <nav class="space-y-1.5">
+                <a href="/Home.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-[14px] font-medium text-gray-400 hover:bg-[#0d1024] hover:text-white transition-all">
+                    <span>Dashboard</span>
+                </a>
+                <a href="" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-[14px] font-semibold bg-[#0d1024] text-white border border-purple-500/30 transition-all">
+                    <span>Tutorial</span>
+                </a>
+                <a href="Avatars.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-[14px] font-medium text-gray-400 hover:bg-[#0d1024] hover:text-white transition-all">
+                    <span>Avatars</span>
+                </a>
+                <a href="/backgrounds.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-[14px] font-medium text-gray-400 hover:bg-[#0d1024] hover:text-white transition-all">
+                    <span>Backgrounds</span>
+                </a>
+                <a href="/credits.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-[14px] font-medium text-gray-400 hover:bg-[#0d1024] hover:text-white transition-all">
+                    <span>Credits</span>
+                </a>
+                <a href="/Transactions.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-[14px] font-medium text-gray-400 hover:bg-[#0d1024] hover:text-white transition-all">
+                    <span>Transactions</span>
+                </a>
+                <a href="/settings.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-[14px] font-medium text-gray-400 hover:bg-[#0d1024] hover:text-white transition-all">
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="pt-4 border-t border-slate-800/40 space-y-4">
+                <div class="bg-[#0d1024]/60 border border-slate-800/50 rounded-xl p-4 space-y-3">
+                    <div class="text-[13px] font-bold text-white tracking-tight">Refer & Earn</div>
+                    <p class="text-[11px] text-gray-400 leading-relaxed">Invite friends and get bonus credits.</p>
+                    <a href="/Credits.html" class="block text-center text-[12px] font-bold text-white bg-gradient-to-r from-brandPurple to-brandLightPurple hover:opacity-95 transition-all py-2 rounded-lg button-glow">
+                        Buy Credits
+                    </a>
+                </div>
+
+                <div class="bg-[#0d1024]/60 border border-slate-800/50 rounded-xl p-4 space-y-2">
+                    <div class="text-[13px] font-bold text-white tracking-tight">Community</div>
+                    <p class="text-[11px] text-gray-400 leading-relaxed">Join our WhatsApp group for updates and support.</p>
+                    <a href="https://chat.whatsapp.com/example" target="_blank" class="block text-center text-[12px] font-bold text-white bg-[#25d366]/20 border border-[#25d366]/40 hover:bg-[#25d366]/30 transition-all py-2 rounded-lg">
+                        Join WhatsApp Group
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-4 border-t border-slate-800/60 bg-[#04050d]">
+            <button onclick="handleLogout(event)" class="w-full text-center text-[13px] font-semibold text-gray-400 hover:text-white bg-[#0d1024]/40 hover:bg-red-950/20 border border-slate-800/80 hover:border-red-900/40 transition-all py-2.5 rounded-xl">
+                Log out
+            </button>
+        </div>
+    </aside>
+
+    <main class="flex-1 min-h-screen pl-64 flex flex-col justify-between pb-12">
+        <div class="p-6 lg:p-8 space-y-6 max-w-7xl w-full mx-auto">
+
+            <header class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+                <div class="bg-[#0d1024] border border-slate-800/80 rounded-xl p-4 flex flex-col justify-center">
+                    <span class="text-[11px] font-bold tracking-wider text-gray-500 uppercase block mb-1">Available Credits</span>
+                    <span id="metric-credits" class="text-lg font-bold text-white">0 credits</span>
+                </div>
+
+                <div class="bg-[#0d1024] border border-slate-800/80 rounded-xl p-4 flex flex-col justify-center">
+                    <span class="text-[11px] font-bold tracking-wider text-gray-500 uppercase block mb-1">Active Plan</span>
+                    <span id="metric-plan" class="text-lg font-bold text-white">Standard</span>
+                </div>
+
+                <div class="bg-[#0d1024] border border-slate-800/80 rounded-xl p-4 flex flex-col justify-center">
+                    <span class="text-[11px] font-bold tracking-wider text-gray-500 uppercase block mb-1">System Status</span>
+                    <div class="flex items-center space-x-2 mt-0.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span class="text-lg font-bold text-white">Live</span>
+                    </div>
+                </div>
+
+                <div class="bg-[#0d1024] border border-slate-800/80 rounded-xl p-4 flex flex-col justify-center overflow-hidden">
+                    <span class="text-[11px] font-bold tracking-wider text-gray-500 uppercase block mb-1">User</span>
+                    <span id="metric-user-email" class="text-[14px] font-bold text-white truncate">loading...</span>
+                </div>
+            </header>
+
+            <section class="bg-[#0d1024] border border-slate-800/60 rounded-2xl p-6 lg:p-8 shadow-2xl space-y-6">
+                <div>
+                    <h1 class="text-xl font-bold text-white tracking-tight mb-1">Platform tutorials</h1>
+                    <p class="text-[13px] text-gray-400">
+                        Your admin curates these videos. Paste any normal YouTube link — watch, youtu.be, Shorts, or embed URLs all work.
+                    </p>
+                </div>
+
+                <div class="space-y-8 pt-2">
+                    <div class="border-b border-slate-800/60 pb-8 space-y-3">
+                        <h2 class="text-[15px] font-bold text-white tracking-tight">How To Use FaceVerseAi On Whatsapp</h2>
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            <div class="lg:col-span-2 aspect-video bg-[#05050f] border border-slate-800/80 rounded-xl relative overflow-hidden flex items-center justify-center group">
+                                <div class="absolute inset-0 bg-neutral-950/40 flex items-center justify-center">
+                                    <div class="w-14 h-14 rounded-full bg-brandPurple/20 border border-brandLightPurple/40 flex items-center justify-center text-brandLightPurple group-hover:scale-110 transition-transform duration-300 cursor-pointer">
+                                        <svg class="w-6 h-6 fill-current translate-x-0.5" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="download-asset-box-1" class="bg-[#090b16]/50 border border-slate-800/60 rounded-xl p-5 flex flex-col justify-between space-y-4">
+                                <div class="space-y-2">
+                                    <h3 class="text-[13px] font-bold text-white leading-snug">Here are the button to download the files that you will use to connect OBS to Whatsapp and telegram</h3>
+                                    <p class="text-[12px] text-gray-400 leading-relaxed">Purchase credits to unlock this download after watching the tutorial.</p>
+                                </div>
+                                <a href="/Credits.html" class="block text-center text-[13px] font-bold text-white bg-gradient-to-r from-brandPurple to-brandLightPurple hover:opacity-95 transition-all py-2.5 rounded-lg button-glow">
+                                    Buy credits
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <h2 class="text-[15px] font-bold text-white tracking-tight">Connect FaceVerseAi to Telegram for call</h2>
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            <div class="lg:col-span-2 aspect-video bg-[#05050f] border border-slate-800/80 rounded-xl relative overflow-hidden flex items-center justify-center group">
+                                <div class="absolute inset-0 bg-neutral-950/40 flex items-center justify-center">
+                                    <div class="w-14 h-14 rounded-full bg-brandPurple/20 border border-brandLightPurple/40 flex items-center justify-center text-brandLightPurple group-hover:scale-110 transition-transform duration-300 cursor-pointer">
+                                        <svg class="w-6 h-6 fill-current translate-x-0.5" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-[#090b16]/30 border border-slate-800/40 rounded-xl p-5 flex items-center justify-center">
+                                <p class="text-[13px] text-gray-500 font-medium tracking-wide">No download materials for this lesson.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer class="max-w-7xl w-full mx-auto px-6 lg:px-8 mt-auto">
+            <div class="w-full bg-[#090b16] border border-slate-800/80 rounded-xl px-5 py-3 flex flex-col sm:flex-row items-center justify-between text-[12px] text-gray-500 font-mono gap-3">
+                <div class="flex items-center space-x-6">
+                    <div>Session usage: <span class="text-gray-400 font-sans font-medium">0s / unlimited session</span></div>
+                    <div class="hidden md:block border-l border-slate-800 h-4"></div>
+                    <div>Today\u2019s usage: <span class="text-gray-400 font-sans font-medium">0s</span></div>
+                </div>
+                <div>Credits used today: <span class="text-gray-400 font-sans font-medium">0</span></div>
+            </div>
+        </footer>
+    </main>
+
+    <div class="fixed bottom-6 right-6 z-40">
+        <button class="w-12 h-12 rounded-full bg-[#161933] border border-slate-700/60 shadow-[0_4px_20px_rgba(0,0,0,0.5)] text-brandLightPurple flex items-center justify-center hover:bg-[#1d2244] hover:text-white transition-all transform hover:scale-105 active:scale-95">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+        </button>
+    </div>
+
+    <script>
+        // Fetch Visitor Profile and Populate Panel Component Metrics
+        async function loadProfileSession() {
+            try {
+                const response = await fetch('http://localhost:5000/api/auth/me', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include' // Capture cookie state or session headers
+                });
+
+                if (!response.ok) {
+                    // Restrict non-authenticated traffic from accessing protected dashboard layouts
+                    window.location.href = '/index.html';
+                    return;
+                }
+
+                const data = await response.json();
+
+                // Update Top Horizontal Row Info
+                document.getElementById('metric-user-email').textContent = data.email || 'N/A';
+                document.getElementById('metric-credits').textContent = `${data.credits ?? 0} credits`;
+                document.getElementById('metric-plan').textContent = data.plan || 'Standard';
+
+                // Conditional Handling: If user owns active credits, swap the lock out action with actual direct link targets
+                if (data.credits > 0) {
+                    const downloadBox = document.getElementById('download-asset-box-1');
+                    if (downloadBox) {
+                        downloadBox.innerHTML = `
+                            <div class="space-y-2">
+                                <h3 class="text-[13px] font-bold text-emerald-400 leading-snug">Assets Unlocked</h3>
+                                <p class="text-[12px] text-gray-400 leading-relaxed">Download connection patches containing setup dependencies for WhatsApp & Telegram integrations.</p>
+                            </div>
+                            <a href="https://backend.FaceVerseAi1.com/downloads/obs-assets.zip" download class="block text-center text-[13px] font-bold text-white bg-emerald-600 hover:bg-emerald-500 transition-all py-2.5 rounded-lg active:scale-[0.98]">
+                                Download Files
+                            </a>
+                        `;
+                    }
+                }
+
+            } catch (error) {
+                console.error('Failed to populate panel layer inputs:', error);
+                // Fallback graceful bounce sequence targeting auth context
+                window.location.href = '/auth.html';
+            }
+        }
+
+        // Trigger Log out Action
+        async function handleLogout(event) {
+            event.preventDefault();
+            if (!confirm('Are you sure you want to log out of your session?')) return;
+
+            try {
+                const response = await fetch('http://localhost:5000/api/auth/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include'
+                });
+
+                // Regardless of strict state tracking response codes, clear token indicators and redirect locally
+                window.location.href = '/auth.html';
+            } catch (error) {
+                console.error('Network disconnect operation error:', error);
+                window.location.href = '/auth.html';
+            }
+        }
+
+        // Initialize execution stack bindings on payload configuration clearance
+        document.addEventListener('DOMContentLoaded', loadProfileSession);
+    </script>
+</body>
+</html>

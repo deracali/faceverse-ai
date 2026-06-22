@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FaceVerseAi Settings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bg-main': '#0b0f19',
+                        'bg-card': '#111520',
+                        'border-color': '#1e2538',
+                        'text-muted': '#8b96a8',
+                        'text-light': '#e2e8f0',
+                        'purple-active': '#1a1736',
+                        'border-active': '#3c2c68'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Modern scrollbar styling */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #0b0f19; }
+        ::-webkit-scrollbar-thumb { background: #1e2538; border-radius: 3px; }
+
+        /* Custom styling to override default select arrow styling across browsers */
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+        }
+    </style>
+</head>
+<body class="bg-bg-main text-white h-screen flex overflow-hidden font-sans">
+
+    <aside class="w-[260px] p-6 flex flex-col border-r border-border-color bg-bg-main overflow-y-auto shrink-0">
+        <div class="text-[22px] font-bold mb-8 tracking-tight">FaceVerseAi</div>
+
+        <nav class="flex flex-col gap-1 mb-8">
+            <a href="/Home.html" class="text-text-muted hover:text-white hover:bg-white/5 px-4 py-2.5 rounded-lg text-sm transition-all">Dashboard</a>
+            <a href="/turtor.html" class="text-text-muted hover:text-white hover:bg-white/5 px-4 py-2.5 rounded-lg text-sm transition-all">Tutorial</a>
+            <a href="/Avatars.html" class="text-text-muted hover:text-white hover:bg-white/5 px-4 py-2.5 rounded-lg text-sm transition-all">Avatars</a>
+            <a href="/Backgrounds.html" class="text-text-muted hover:text-white hover:bg-white/5 px-4 py-2.5 rounded-lg text-sm transition-all">Backgrounds</a>
+            <a href="/credits.html" class="text-text-muted hover:text-white hover:bg-white/5 px-4 py-2.5 rounded-lg text-sm transition-all">Credits</a>
+            <a href="/Transactions.html" class="text-text-muted hover:text-white hover:bg-white/5 px-4 py-2.5 rounded-lg text-sm transition-all">Transactions</a>
+            <a href="/Settings.html" class="bg-purple-active text-white border border-border-active px-4 py-2.5 rounded-lg text-sm transition-all">Settings</a>
+        </nav>
+
+        <div class="bg-bg-card border border-border-color rounded-xl p-4 mb-4 flex flex-col gap-3">
+            <h3 class="text-sm font-semibold">Refer & Earn</h3>
+            <p class="text-xs text-text-muted leading-normal">Invite friends and get bonus credits.</p>
+            <button class="bg-gradient-to-r from-[#7b3fe4] to-[#9f61f7] text-white px-4 py-2.5 rounded-lg text-sm font-medium shadow-[0_4px_12px_rgba(123,63,228,0.2)] w-fit cursor-pointer">Buy Credits</button>
+        </div>
+
+        <div class="bg-bg-card border border-border-color rounded-xl p-4 mb-4 flex flex-col gap-3">
+            <h3 class="text-sm font-semibold">Community</h3>
+            <p class="text-xs text-text-muted leading-normal">Join our WhatsApp group for updates and support.</p>
+            <button class="bg-gradient-to-r from-[#7b3fe4] to-[#9f61f7] text-white px-4 py-2.5 rounded-lg text-sm font-medium shadow-[0_4px_12px_rgba(123,63,228,0.2)] w-fit cursor-pointer">Join WhatsApp Group</button>
+        </div>
+
+        <button id="logout-btn" class="border border-border-color rounded-lg py-2.5 text-sm cursor-pointer mt-auto hover:bg-white/5 transition-colors">Log out</button>
+    </aside>
+
+    <main class="flex-1 p-6 md:px-8 flex flex-col gap-4 overflow-y-auto relative">
+
+        <div class="grid grid-cols-4 gap-4">
+            <div class="bg-bg-card border border-border-color rounded-lg p-5 flex flex-col">
+                <div class="text-xs text-text-muted mb-3">Available Credits</div>
+                <div id="user-credits" class="text-base font-bold text-white">0 credits</div>
+            </div>
+            <div class="bg-bg-card border border-border-color rounded-lg p-5 flex flex-col">
+                <div class="text-xs text-text-muted mb-3">Active Plan</div>
+                <div id="user-plan" class="text-base font-bold text-white">Standard</div>
+            </div>
+            <div class="bg-bg-card border border-border-color rounded-lg p-5 flex flex-col">
+                <div class="text-xs text-text-muted mb-3">System Status</div>
+                <div class="text-base font-bold text-white flex items-center">
+                    <span class="inline-block w-2 h-2 bg-[#10b981] rounded-full mr-1.5"></span>Live
+                </div>
+            </div>
+            <div class="bg-bg-card border border-border-color rounded-lg p-5 flex flex-col">
+                <div class="text-xs text-text-muted mb-3">User</div>
+                <div id="user-email" class="text-base font-bold text-white truncate">Loading...</div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-5 gap-4 items-start">
+
+            <div class="bg-bg-card border border-border-color rounded-lg p-5 flex flex-col gap-5 col-span-3 min-h-[460px]">
+                <h2 class="text-base font-medium text-white">Stream Settings</h2>
+
+                <div class="flex flex-wrap gap-3">
+                    <select class="bg-bg-main border border-border-color text-white text-sm rounded-lg px-4 py-2 w-36 cursor-pointer focus:outline-none focus:border-border-active">
+                        <option>1080p</option>
+                        <option>720p</option>
+                    </select>
+
+                    <select class="bg-bg-main border border-border-color text-white text-sm rounded-lg px-4 py-2 w-36 cursor-pointer focus:outline-none focus:border-border-active">
+                        <option>30 FPS</option>
+                        <option>60 FPS</option>
+                    </select>
+
+                    <select class="bg-bg-main border border-border-color text-white text-sm rounded-lg px-4 py-2 w-36 cursor-pointer focus:outline-none focus:border-border-active">
+                        <option>4500 kbps</option>
+                        <option>6000 kbps</option>
+                        <option>3000 kbps</option>
+                    </select>
+                </div>
+
+                <div class="flex gap-2">
+                    <button class="bg-purple-active text-white border border-border-active px-4 py-1.5 rounded-lg text-sm font-normal cursor-pointer transition-colors">Camera</button>
+                    <button class="bg-purple-active text-white border border-border-active px-4 py-1.5 rounded-lg text-sm font-normal cursor-pointer transition-colors">Mic</button>
+                </div>
+            </div>
+
+            <div class="bg-bg-card border border-border-color rounded-lg p-5 flex flex-col gap-4 col-span-2 min-h-[460px]">
+                <h2 class="text-base font-medium text-white">Account</h2>
+
+                <div class="flex flex-col gap-1.5 text-sm">
+                    <div class="text-text-light">Email: <span id="account-email" class="text-text-muted">Loading...</span></div>
+                    <div class="text-text-light">Sponsored access: <span class="text-text-muted">Disabled</span></div>
+                    <div class="text-text-light">Credits remaining: <span id="account-credits" class="text-text-muted">0 credits</span></div>
+                </div>
+
+                <form id="password-form" class="flex flex-col gap-3 mt-1">
+                    <input id="current-password" type="password" required placeholder="Current password" class="bg-bg-main border border-border-color rounded-lg px-4 py-2.5 text-sm text-white placeholder-text-muted focus:outline-none focus:border-border-active w-full" />
+                    <input id="new-password" type="password" required placeholder="New password (min 6)" class="bg-bg-main border border-border-color rounded-lg px-4 py-2.5 text-sm text-white placeholder-text-muted focus:outline-none focus:border-border-active w-full" />
+                    <input id="confirm-password" type="password" required placeholder="Confirm new password" class="bg-bg-main border border-border-color rounded-lg px-4 py-2.5 text-sm text-white placeholder-text-muted focus:outline-none focus:border-border-active w-full" />
+
+                    <button type="submit" class="border border-border-active bg-purple-active/40 text-white/90 text-sm py-2.5 rounded-lg w-full cursor-pointer hover:bg-purple-active/70 transition-colors mt-1 font-normal">
+                        Change password
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="bg-bg-card border border-border-color rounded-lg px-5 py-4 flex justify-between items-center text-xs text-text-muted mt-auto">
+            <span>Session usage: 0s / unlimited session</span>
+            <span>Today’s usage: 0s</span>
+            <span>Credits used: <span id="footer-credits">0 of 0</span></span>
+        </div>
+
+        <div class="absolute bottom-24 right-8 w-12 h-12 bg-[#3c2c68] rounded-full flex items-center justify-center cursor-pointer shadow-xl border border-white/10 w-[50px] h-[50px]">
+            <svg class="w-6 h-6 fill-white" viewBox="0 0 24 24">
+                <path d="M12 3c5.5 0 10 3.58 10 8s-4.5 8-10 8c-1.24 0-2.43-.18-3.53-.5C5.55 21 2 21 2 21c2.33-2.33 2.7-3.9 2.75-4.5C3.19 15.07 2 13.13 2 11c0-4.42 4.5-8 10-8z"/>
+            </svg>
+        </div>
+
+    </main>
+
+    <script>
+        // Read and map server configuration footprint details
+        async function fetchUserInfo() {
+            try {
+                const response = await fetch('http://localhost:5000/api/auth/me', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include'
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    const targetEmail = data.email || 'No email set';
+                    const availableCredits = data.credits !== undefined ? data.credits : 0;
+
+                    // Header widgets assignment
+                    document.getElementById('user-email').textContent = targetEmail;
+                    document.getElementById('user-credits').textContent = `${availableCredits} credits`;
+
+                    // Settings-specific info cards matching assignment
+                    document.getElementById('account-email').textContent = targetEmail;
+                    document.getElementById('account-credits').textContent = `${availableCredits} credits`;
+
+                    document.getElementById('footer-credits').textContent = `0 of ${availableCredits}`;
+
+                    if (data.plan) {
+                        document.getElementById('user-plan').textContent = data.plan;
+                    }
+                } else {
+                    // Force authorization clearance pipeline
+                    window.location.href = '/index.html';
+                }
+            } catch (error) {
+                console.error('An error occurred resolving internal active credentials profile:', error);
+            }
+        }
+
+        // Forward explicit credential configuration update request
+        async function handlePasswordChange(event) {
+            event.preventDefault();
+
+            const currentPassword = document.getElementById('current-password').value;
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            if (newPassword !== confirmPassword) {
+                alert('New passwords do not match!');
+                return;
+            }
+
+            if (newPassword.length < 6) {
+                alert('New password must be at least 6 characters long.');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5000/api/auth/change-password', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({
+                        currentPassword: currentPassword,
+                        newPassword: newPassword
+                    })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert('Password changed successfully!');
+                    document.getElementById('password-form').reset();
+                } else {
+                    alert(result.message || 'Failed to update your password.');
+                }
+            } catch (error) {
+                console.error('Password change pipeline request was dropped:', error);
+                alert('An error occurred while connecting to the server.');
+            }
+        }
+
+        // Close explicit authorization tokens on demand
+        async function handleLogout() {
+            try {
+                await fetch('http://localhost:5000/api/auth/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include'
+                });
+                window.location.href = '/index.html';
+            } catch (error) {
+                console.error('Logout routing trace pipeline encountered a network disruption:', error);
+                window.location.href = '/index.html';
+            }
+        }
+
+        // Bind interactive UI actions safely upon DOM configuration lifecycle load
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchUserInfo();
+            document.getElementById('logout-btn').addEventListener('click', handleLogout);
+            document.getElementById('password-form').addEventListener('submit', handlePasswordChange);
+        });
+    </script>
+</body>
+</html>
